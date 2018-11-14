@@ -19,14 +19,21 @@ class ContractForm extends Component {
     });
   };
 
+  execute = () => {
+    console.log('execute'); 
+    const { amount, network } = this.state;
+    this.props.extractData({amount, network});
+  };
+
   render() {
-    const { errorMessage } = this.state;
-    const hasError = errorMessage === null;
+    const { errorMessage, amount } = this.state;
+    const hasError = errorMessage !== null;
+    const formComplete = amount !== 0 && !hasError;
     return (
       <div style={{flex:1}}>
         <div>
           {
-            !hasError ? <p>Error: {errorMessage} </p> : null
+            hasError ? <p>Error: {errorMessage} </p> : null
           }
           <Row type="flex" justify="space-around" gutter={16} style={{margin: '0 auto'}}>
             <Col xs={24} sm={12} md={8} lg={8} span={4}>
@@ -36,7 +43,14 @@ class ContractForm extends Component {
               <SelectDropdown type="network" returnValue={this.processInputs} />
             </Col>
             <Col xs={24} sm={12} md={8} span={4}>
-              <Button style={{width: 200}} block>Send to Bridge</Button>
+              <Button 
+                disabled={!formComplete}
+                onClick={() => this.execute()} 
+                style={{width: 200}}
+                type= {!formComplete ? 'danger': 'primary'}
+                block>
+                Send to Bridge
+              </Button>
             </Col>
           </Row>
         </div>

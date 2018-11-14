@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'
-import { Layout, Menu, Input } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 const { SubMenu } = Menu;
-const { Header, Content, Sider, Footer } = Layout;
-const InputGroup = Input.Group;
+const { Header } = Layout;
+const MenuItemGroup = Menu.ItemGroup;
 
 class NavigationHeader extends Component {
   render() {
@@ -16,8 +16,15 @@ class NavigationHeader extends Component {
                 mode="horizontal"
                 defaultSelectedKeys={['2']}
                 style={{ lineHeight: '64px' }}>
-                <Menu.Item key="1" style={{fontSize:'1.75em'}}>Goerli</Menu.Item>                                                
-                <Menu.Item key="6" style={{float:'right'}}>Options</Menu.Item>
+                <Menu.Item key="1" style={{fontSize:'1.75em'}}>Goerli Bridge</Menu.Item>              
+                <SubMenu style={{float:'right'}} title={<span className="submenu-title-wrapper"><Icon type="setting" />Resources</span>}>
+                  <MenuItemGroup title="Links">
+                    <Menu.Item key="setting:1"><a href='https://github.com/goerli'>Github</a></Menu.Item>
+                    <Menu.Item key="setting:2"><a href='https://gitter.im/goerli'>Gitter</a></Menu.Item>
+                    <Menu.Item key="setting:3"><a href='https://explorer.goerli.net'>Goerli Explorer</a></Menu.Item>
+                    <Menu.Item key="setting:4"><a href='https://stats.goerli.net/'>Goerli Stats</a></Menu.Item>
+                  </MenuItemGroup>                
+                </SubMenu>
             </Menu>
         </div>           
       </Header>
