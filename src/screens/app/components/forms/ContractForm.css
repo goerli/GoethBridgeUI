@@ -1,0 +1,22 @@
+.cardContainer { 
+  width: 90%;
+  margin: 0 auto;
+}
+
+.componentContainer {
+  flex: 1;
+}
+
+.errorTxt {
+  font-size: 1.2em;
+  font-weight: 400;
+  color: red;
+}
+
+.formContainer {
+  margin: 0 auto;
+}
+
+.btn { 
+  width: 200px;
+}

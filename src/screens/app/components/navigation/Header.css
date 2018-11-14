@@ -1,0 +1,11 @@
+.menuStyle { 
+  line-height: 64px;
+}
+
+.orgName {
+  font-size: 1.75em;
+}
+
+.subMenuContainer { 
+  float: right;
+}

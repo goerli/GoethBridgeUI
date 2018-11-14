@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'
+import './Select.css';
 import { Select } from 'antd';
 
 const Option = Select.Option;
@@ -35,8 +36,8 @@ class SelectDropdown extends Component {
     return (
       <Select
         showSearch
-        style={{ width: '100%' }}
         placeholder={network}
+        className='selectElement'
         optionFilterProp="children"
         onChange={this.handleChange}
         onFocus={this.handleFocus}
