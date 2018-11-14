@@ -61,7 +61,7 @@ class App extends Component {
             }
           </div>
         </Content>
-        <Footer className="footer"> ChainSafe Systems </Footer>
+        <Footer className="footer"> Goerli </Footer>
       </Layout>
     );
   }
