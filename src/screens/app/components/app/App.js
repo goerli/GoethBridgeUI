@@ -36,7 +36,7 @@ class App extends Component {
             }
           </div>
         </Content>
-        <Footer className="footer"> Goerli </Footer>
+        <Footer className="footer"> ChainSafe Systems </Footer>
       </Layout>
     );
   }
