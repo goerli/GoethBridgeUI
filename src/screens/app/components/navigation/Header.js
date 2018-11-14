@@ -13,7 +13,7 @@ class NavigationHeader extends Component {
         <div>
           <div className="logo" />
             <Menu theme="dark" mode="horizontal" className="menuStyle">
-                <Menu.Item key="2" className='orgName'> <img className='orgImage' src={require('../../../../assets/images/chainsafe.jpeg')} alt="fds" />  Chain Bridge</Menu.Item>              
+                <Menu.Item key="2" className='orgName'> <img className='orgImage' src={require('../../../../assets/images/goerli.png')} alt="fds" />  Goerli Bridge UI</Menu.Item>              
                 <SubMenu className='subMenuContainer' 
                   title={
                     <span className="submenu-title-wrapper">

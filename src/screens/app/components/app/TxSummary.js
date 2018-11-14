@@ -8,6 +8,8 @@ class TxSummary extends Component {
     return (
       <Row>
         <Col>
+          {/* 
+          Work In Progress
           <Card className="cardContainer">
             <div className="textContainer">
               <p className="textTitle">Block Number </p>
@@ -19,7 +21,7 @@ class TxSummary extends Component {
               <p className="textTitle">Value </p>
               <p className="textData">1.9 </p>
             </div>           
-          </Card>
+          </Card> */}
         </Col>           
      </Row>
     );
