@@ -6,6 +6,11 @@
   font-size: 1.75em;
 }
 
+.orgImage {
+  height: 50px;
+
+}
+
 .subMenuContainer { 
   float: right;
 }

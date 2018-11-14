@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import './TxSummary.css';
-import { Button, Row, Col, Card } from 'antd';
+import { Row, Col, Card } from 'antd';
 
 class TxSummary extends Component {
   render() {

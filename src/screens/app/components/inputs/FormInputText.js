@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css'
-import { Input, Button } from 'antd';
-const InputGroup = Input.Group;
+import { Input } from 'antd';
 
 class FormInputText extends Component {
 

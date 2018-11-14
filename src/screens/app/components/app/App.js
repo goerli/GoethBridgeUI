@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import 'antd/dist/antd.css'
 import './App.css';
-import { Layout, Row, Col, Card } from 'antd';
+import { Layout } from 'antd';
 import NavigationHeader from '../navigation/Header';
 import ContractForm from '../forms/ContractForm';
 import TxSummary from './TxSummary';

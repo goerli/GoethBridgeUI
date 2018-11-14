@@ -12,8 +12,9 @@ class NavigationHeader extends Component {
       <Header className="header">               
         <div>
           <div className="logo" />
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} className="menuStyle">
-                <Menu.Item key="1" className='orgName'>Goerli Bridge</Menu.Item>              
+            <Menu theme="dark" mode="horizontal" className="menuStyle">
+                <Menu.Item key="1"><img className='orgImage' src={require('../../../../assets/images/goerli.png')} alt="fds" /> </Menu.Item>    
+                <Menu.Item key="2" className='orgName'>Goerli Bridge</Menu.Item>              
                 <SubMenu className='subMenuContainer' 
                   title={
                     <span className="submenu-title-wrapper">
