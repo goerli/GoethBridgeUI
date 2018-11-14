@@ -40,12 +40,10 @@ class ContractForm extends Component {
             </Col>
           </Row>
         </div>
-        <div>
-          
-        </div>
       </div>
     );
   }
 }
+
 
 export default ContractForm;
