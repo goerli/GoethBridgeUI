@@ -1,0 +1,14 @@
+.cardContainer { 
+  width: 90%;
+  margin: 0 auto;
+}
+
+.textContainer {
+  overflow: hidden;
+}
+
+.textTitle { 
+  font-size: 1.3em;
+  font-weight: 500;
+  color: red;
+}

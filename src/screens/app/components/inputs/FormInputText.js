@@ -30,7 +30,7 @@ class FormInputText extends Component {
     const { placeholderText } = this.props;
     return (
       <div>
-        <Input placeholder={placeholderText} onChange={this.handleChange}/>       
+        <Input disabled={this.props.isDisabled} placeholder={placeholderText} onChange={this.handleChange}/>       
       </div>
     );
   }

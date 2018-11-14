@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import './ContractForm.css';
 import { Button, Row, Col, Card } from 'antd';
-import SelectDropdown from '../inputs/Select';
 import FormInputText from '../inputs/FormInputText';
 
 class ContractForm extends Component {
 
   state= {
     amount: 0,
-    network: null,
+    network: this.props.activeNetwork,
     errorMessage: null,
   };
 
@@ -41,10 +40,10 @@ class ContractForm extends Component {
               </div>
               <Row type="flex" justify="space-around" gutter={16} className="formContainer">
                 <Col xs={24} sm={12} md={8} lg={8} span={4}>
-                  <FormInputText type="amount" placeholderText="Amount" returnValue={this.processInputs} />
+                  <FormInputText isDisabled={false} type="amount" placeholderText="Amount" returnValue={this.processInputs} />
                 </Col>           
                 <Col xs={24} sm={12} md={8} span={4}>
-                  <SelectDropdown type="network" returnValue={this.processInputs} />
+                  <FormInputText isDisabled={true} placeholderText={this.props.activeNetwork} />
                 </Col>
                 <Col xs={24} sm={12} md={8} span={4}>
                   <Button 
