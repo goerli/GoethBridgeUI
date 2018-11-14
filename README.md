@@ -1,4 +1,4 @@
-#### Görli's Göeth Bridge User interface 
+#### ChainBridge User interface 
 
 #### dependencies
 node lts
