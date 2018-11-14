@@ -7,8 +7,11 @@ import ContractForm from '../forms/ContractForm';
 import TxSummary from './TxSummary';
 import Error from './Error';
 import getNetwork from '../../../../scripts/network';
-const Web3 = require('web3');
+import executeDeposit from '../../../../scripts/contract';
+import provider from '../../../../scripts/provider';
 
+const Web3 = require('web3');
+const ethers = require('ethers');
 const { Footer, Content } = Layout;
 
 class App extends Component {
@@ -18,32 +21,13 @@ class App extends Component {
     dataProcessed: false,
     web3: null,
     error: null,
+    provider: null,
   };
 
   async componentDidMount() {
-
     const selectedNetwork = await getNetwork();
-    this.setState({ network: selectedNetwork })
-
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      try {
-          const acc = await window.ethereum.enable();
-          console.log(acc)
-          const f = await window.web3.eth.currentProvider
-          console.log(f)
-      } catch (error) {
-          console.log("oops we caught an error", error)
-      }
-    }
-    else if (window.web3) {
-        window.web3 = new Web3(window.web3.currentProvider);
-        console.log("Legacy")
-        console.log(window.web3.eth.accounts)
-    }
-    else {
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-    }
+    const providerObj = await provider();
+    this.setState({ network: selectedNetwork, provider: providerObj })
   }
 
   checkProvider = () => {
@@ -54,9 +38,12 @@ class App extends Component {
   }
 
   processRequest = ({amount, network}) => {
+    const { provider } = this.state;
     this.setState({ amount, network, dataProcessed: true }, function () {
       console.log(this.state);
     });
+    console.log('get contract');
+    executeDeposit(provider, amount, network);
   }
 
   render() {
