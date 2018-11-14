@@ -22,28 +22,21 @@ class App extends Component {
     web3: null,
     error: null,
     provider: null,
+    pubKey: null,
   };
 
   async componentDidMount() {
     const selectedNetwork = await getNetwork();
-    const providerObj = await provider();
-    this.setState({ network: selectedNetwork, provider: providerObj })
-  }
-
-  checkProvider = () => {
-    if(window.web3 !== 'undefined') {
-      return true;
-    }
-    return false;    
+    const { providerObj, pubKey } = await provider();
+    this.setState({ network: selectedNetwork, provider: providerObj, pubKey })
   }
 
   processRequest = ({amount, network}) => {
-    const { provider } = this.state;
+    const { provider, pubKey } = this.state;
     this.setState({ amount, network, dataProcessed: true }, function () {
       console.log(this.state);
     });
-    console.log('get contract');
-    executeDeposit(provider, amount, network);
+    executeDeposit(provider, amount, network, pubKey);
   }
 
   render() {

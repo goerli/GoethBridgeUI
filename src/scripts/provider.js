@@ -2,28 +2,24 @@ const Web3 = require('web3');
 const ethers = require('ethers');
 
 const provider = async () => {
-  let provider
+  let providerObj;
+  let pubKey;
   if (window.ethereum) {
     window.web3 = new Web3(window.ethereum);
     try {
-        const acc = await window.ethereum.enable();
-        console.log(acc)
-        provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
-        console.log({provider});
-        const signer = provider.getSigner()
-        console.log({signer});
+      pubKey = await window.ethereum.enable();
+      providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider)
+      const signer = providerObj.getSigner()
     } catch (error) {
-        console.log("oops we caught an error", error)
+      console.log("oops we caught an error", error)
     }
   }
   else if (window.web3) {
-        window.web3 = new Web3(window.web3.currentProvider);
-        console.log("Legacy")
-        console.log(window.web3.eth.accounts)
+    window.web3 = new Web3(window.web3.currentProvider);
   } else {
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
   }
-  return provider;
+  return { providerObj, pubKey };
 }
 
 export default provider;
