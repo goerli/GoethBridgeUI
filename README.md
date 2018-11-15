@@ -1,7 +1,7 @@
 #### Görli's Göeth Bridge User interface 
 
 #### dependencies
-node lts
+node `8.10.0` or later 
 
 #### instructions to run:
 clone this repo
