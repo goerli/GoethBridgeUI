@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const ethers = require('ethers');
 
 const executeDeposit = async (provider, amount, network, pubKey) => {

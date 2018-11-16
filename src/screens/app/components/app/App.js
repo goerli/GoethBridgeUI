@@ -80,10 +80,25 @@ class App extends Component {
     return eventObject;
   };
 
+  resetData = () => {
+    this.setState({ 
+      dataProcessed: false,
+      eventRecipient: null, 
+      eventValue: null, 
+      eventToChain: null, 
+      eventEvent: null,
+      goerliRecipient: null,
+      goerliValue: null,
+      goerliFromChain: null,
+      amount: 0,
+     });
+  };
+
   render() {
     const { dataProcessed, error, network } = this.state;
     const depositEventTriggered = this.state.eventRecipient !== null;
     const withdrawEventTriggered = this.state.goerliRecipient !== null;    
+    const eventsDisplayed = depositEventTriggered && withdrawEventTriggered;
     return (
       <Layout className="layoutContainer">
         <NavigationHeader />
@@ -96,7 +111,7 @@ class App extends Component {
             : null
           }
           <div className="formDivContainer">
-            <ContractForm activeNetwork={network} extractData={this.processRequest}/>
+            <ContractForm activeNetwork={network} reset={this.resetData} extractData={this.processRequest} eventsComplete={eventsDisplayed}/>
           </div>
           <div>
             <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />           

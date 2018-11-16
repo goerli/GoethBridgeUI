@@ -6,11 +6,21 @@ import { Row, Col, Card } from 'antd';
 class TxSummary extends Component {
 
   getEtherscanLink = () => {
-    const { network } = this.props.txData;
+    const { network, eventEvent } = this.props.txData;
+    const { transactionHash } = eventEvent;
+    let url;
+    if (network === 'ropsten') {
+      url = `https://ropsten.etherscan.io/tx/${transactionHash}`;
+    } else if (network === 'kovan') {
+      url = `https://kovan.etherscan.io/tx/${transactionHash}`;
+    } else if (network === 'rinkeby') {
+     url = `https://rinkeby.etherscan.io/tx/${transactionHash}`;
+    }  
+    return url;
   };
 
   render() {
-    const { eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain, network  } = this.props.txData;
+    const { eventEvent, goerliRecipient, network  } = this.props.txData;
     const { address, blockHash, blockNumber, data, event, eventSignature, topics, transactionHash, transactionIndex } = eventEvent;
     return (
       <div>
@@ -45,7 +55,8 @@ class TxSummary extends Component {
                 <p className="textTitle">Topics </p>
                 <p className="textData"> {topics} </p>
                 <p className="textTitle">Transaction Hash: </p>
-                <p className="textData">{transactionHash} </p>
+                <p className="textData"> 
+                  <a href={this.getEtherscanLink()}> {transactionHash} </a> </p>
                 <p className="textTitle">Transaction Index: </p>
                 <p className="textData">{transactionIndex} </p>
               </div>           
