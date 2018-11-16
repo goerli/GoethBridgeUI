@@ -45,10 +45,9 @@ class App extends Component {
     this.setState({ amount, dataProcessed: true }, () => {
       console.log({pubKey});
     });
-
     const contract = await executeDeposit(provider, amount, network, pubKey);
     const goerliContract = await instantiateGoerliContract();
-
+    
     contract.on("Deposit", (_recipient, _value, _toChain, event) => {
       const eAddress = _recipient.toLowerCase();
       const cAddress = pubKey[0].toLowerCase();      
