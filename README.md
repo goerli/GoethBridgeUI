@@ -1,4 +1,4 @@
-#### ChainBridge User interface 
+#### Görli's Göeth Bridge User interface 
 
 #### dependencies
 node `v8.10.0` or later 
