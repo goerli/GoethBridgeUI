@@ -26,26 +26,66 @@ class ProgressElement extends Component {
     }
     
     return (
-      <Row>
-        {
+      <div>
+         {
           !activated || finished ? null
-          : <Col>
-              <Card className="cardContainer">
-                <Progress percent={progress} status="active" />
-                <div style={{width: "80%", paddingTop: '5%', paddingBottom: '5%', margin: '0 auto'}}>
+          : <Row style={progressContainer}>
+              <Col>
+                <Card className="cardContainer"> 
+                  <div style={progressElement}>
+                    <Progress  type="circle" percent={progress} />
+                  </div>
+                </Card>
+              </Col>
+            </Row>
+         }
+        <Row>
+          {
+            !activated || finished ? null
+            : <Col>
+                <Card className="cardContainer">
+                <div style={stepContainer}>
+                  <br />
                   <Steps progressDot current={step}>
                     <Step title="Transaction Executed" description="Events are waiting to be registered and displayed." />
                     <Step title="Deposit Recieved" description="Deposit event has been recieved." />
                     <Step title="Withdraw Recieved" description="Withdraw event on Goerli recieved." />
                   </Steps>
+                  <br />
+                  <p style={text}> could take a few minutes... </p>
                 </div>
-              
               </Card>
-          </Col>    
-        }       
-     </Row>
+            </Col>    
+          }       
+      </Row>
+     </div>
     );
   }
 }
+
+const progressContainer = {
+  marginBottom: '2.5%',
+};
+
+const progressElement = {
+  display: 'flex', 
+  alignContent: 'center', 
+  alignItems: 'center', 
+  justifyContent:'center',
+}
+
+const stepContainer = {
+  width: "80%", 
+  paddingTop: '5%', 
+  paddingBottom: '5%',
+  margin: '0 auto', 
+};
+
+const text = {
+  fontSize: '1.3em',
+  fontWeight: '500',
+  color: '#AFA392',
+  textAlign: 'center',
+};
 
 export default ProgressElement;

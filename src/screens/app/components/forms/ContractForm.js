@@ -15,9 +15,7 @@ class ContractForm extends Component {
 
   processInputs = async (resObj) => {
     const { error, data, type } = resObj;
-    this.setState({ errorMessage: error, [type]: data  }, function () {
-      console.log(this.state);
-    });
+    this.setState({ errorMessage: error, [type]: data  }, function () {});
   };
 
   execute = async () => {
