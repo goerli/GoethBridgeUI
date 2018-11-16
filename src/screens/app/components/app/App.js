@@ -40,31 +40,38 @@ class App extends Component {
     });
   }
 
-  processRequest = async ({amount, network}) => {
-    const { provider, pubKey } = this.state;
-    this.setState({ amount, network, dataProcessed: true }, function () {
-      console.log(this.state);
+  processRequest = async ({amount}) => {
+    const { provider, pubKey, network } = this.state;
+    this.setState({ amount, dataProcessed: true }, () => {
+      console.log({pubKey});
     });
+
     const contract = await executeDeposit(provider, amount, network, pubKey);
     const goerliContract = await instantiateGoerliContract();
 
     contract.on("Deposit", (_recipient, _value, _toChain, event) => {
-      console.log('deposit event found', {_recipient, _value, _toChain, event});
-      this.setState({ 
-        eventRecipient: _recipient,
-        eventValue: _value,
-        eventToChain: _toChain,
-        eventEvent: event,
-      });
+      const eAddress = _recipient.toLowerCase();
+      const cAddress = pubKey[0].toLowerCase();      
+      if (eAddress === cAddress) {
+        this.setState({ 
+          eventRecipient: _recipient,
+          eventValue: _value,
+          eventToChain: _toChain,
+          eventEvent: event,
+        });
+      }
     });
 
     goerliContract.on("Withdraw", (_recipient, _value, _fromChain) => {
-      console.log('goerli withdraw', {_recipient, _value, _fromChain});
-      this.setState({ 
-        goerliRecipient: _recipient, 
-        goerliValue: _value,
-        goerliFromChain: _fromChain,
-      })
+      const gAddress = _recipient.toLowerCase();
+      const cAddress = pubKey[0].toLowerCase();
+      if (gAddress === cAddress) {
+        this.setState({ 
+          goerliRecipient: _recipient, 
+          goerliValue: _value,
+          goerliFromChain: _fromChain,
+        });
+      }
     });
   }
 
@@ -77,8 +84,7 @@ class App extends Component {
   render() {
     const { dataProcessed, error, network } = this.state;
     const depositEventTriggered = this.state.eventRecipient !== null;
-    const withdrawEventTriggered = this.state.goerliRecipient !== null;
-
+    const withdrawEventTriggered = this.state.goerliRecipient !== null;    
     return (
       <Layout className="layoutContainer">
         <NavigationHeader />
