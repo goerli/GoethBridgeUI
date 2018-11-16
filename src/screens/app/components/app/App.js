@@ -5,13 +5,13 @@ import { Layout } from 'antd';
 import NavigationHeader from '../navigation/Header';
 import ContractForm from '../forms/ContractForm';
 import TxSummary from './TxSummary';
+import ProgressElement from './ProgressElement';
 import Error from './Error';
 import getNetwork from '../../../../scripts/network';
 import executeDeposit from '../../../../scripts/contract';
 import provider from '../../../../scripts/provider';
+import instantiateGoerliContract from '../../../../scripts/goerliContract'; 
 
-const Web3 = require('web3');
-const ethers = require('ethers');
 const { Footer, Content } = Layout;
 
 class App extends Component {
@@ -23,24 +23,62 @@ class App extends Component {
     error: null,
     provider: null,
     pubKey: null,
+    eventRecipient: null,
+    eventValue: null,
+    eventToChain: null,
+    eventEvent: null,
+    goerliRecipient: null,
+    goerliValue: null,
+    goerliFromChain: null,
   };
 
   async componentDidMount() {
     const selectedNetwork = await getNetwork();
     const { providerObj, pubKey } = await provider();
-    this.setState({ network: selectedNetwork, provider: providerObj, pubKey })
+    this.setState({ network: selectedNetwork, provider: providerObj, pubKey }, ()=> {
+      console.log(this.state.network);
+    });
   }
 
-  processRequest = ({amount, network}) => {
+  processRequest = async ({amount, network}) => {
     const { provider, pubKey } = this.state;
     this.setState({ amount, network, dataProcessed: true }, function () {
       console.log(this.state);
     });
-    executeDeposit(provider, amount, network, pubKey);
+    const contract = await executeDeposit(provider, amount, network, pubKey);
+    const goerliContract = await instantiateGoerliContract();
+
+    contract.on("Deposit", (_recipient, _value, _toChain, event) => {
+      console.log('deposit event found', {_recipient, _value, _toChain, event});
+      this.setState({ 
+        eventRecipient: _recipient,
+        eventValue: _value,
+        eventToChain: _toChain,
+        eventEvent: event,
+      });
+    });
+
+    goerliContract.on("Withdraw", (_recipient, _value, _fromChain) => {
+      console.log('goerli withdraw', {_recipient, _value, _fromChain});
+      this.setState({ 
+        goerliRecipient: _recipient, 
+        goerliValue: _value,
+        goerliFromChain: _fromChain,
+      })
+    });
   }
+
+  getEventData = () => {
+    const { network, eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain } = this.state;
+    const eventObject = { eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain, network };
+    return eventObject;
+  };
 
   render() {
     const { dataProcessed, error, network } = this.state;
+    const depositEventTriggered = this.state.eventRecipient !== null;
+    const withdrawEventTriggered = this.state.goerliRecipient !== null;
+
     return (
       <Layout className="layoutContainer">
         <NavigationHeader />
@@ -48,7 +86,7 @@ class App extends Component {
           {
             error !== null 
             ? <div className="errorContainer"> 
-                <Error  errorMessage={error} /> 
+                <Error errorMessage={error} /> 
               </div> 
             : null
           }
@@ -56,8 +94,11 @@ class App extends Component {
             <ContractForm activeNetwork={network} extractData={this.processRequest}/>
           </div>
           <div>
+            <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />           
+          </div>
+          <div>
             {
-              dataProcessed === true ? <TxSummary /> : null
+              depositEventTriggered && withdrawEventTriggered ? <TxSummary txData={this.getEventData()} /> : null
             }
           </div>
         </Content>
