@@ -33,6 +33,7 @@ class ContractForm extends Component {
     const { errorMessage, amount, activated, resetData } = this.state;
     const hasError = errorMessage !== null;
     const formComplete = amount !== 0 && !hasError;
+    const isMainnet = this.props.activeNetwork === 'main';
     return (
       <Row>
         <Col>
@@ -59,7 +60,7 @@ class ContractForm extends Component {
                         type="danger">Clear Data
                       </Button> 
                   :  <Button 
-                      disabled={!formComplete}
+                      disabled={!formComplete || isMainnet}
                       className="btn"
                       onClick={() => this.execute()} 
                       type= {!formComplete ? 'danger': 'primary'}
