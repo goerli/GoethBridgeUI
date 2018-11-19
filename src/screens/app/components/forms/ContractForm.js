@@ -20,8 +20,8 @@ class ContractForm extends Component {
   };
 
   execute = () => {
-    const { amount, network } = this.state;
-    this.props.extractData({amount, network});
+    const { amount } = this.state;
+    this.props.extractData({amount});
   };
 
   render() {
