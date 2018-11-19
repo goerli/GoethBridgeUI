@@ -1,44 +1,25 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import './ProgressElement.css';
-import { Row, Col, Card, Progress, Steps } from 'antd';
+import { Row, Col, Card, Steps } from 'antd';
 
 const Step = Steps.Step;
 
 class ProgressElement extends Component {
   render() {
     const { activated, depositRecieved, withdrawRecieved } =  this.props;
-    let progress = 0;
     let step = 0;
-    const noProgress = !depositRecieved && !withdrawRecieved;
     const partProgress = depositRecieved && !withdrawRecieved;
     const finished = depositRecieved && withdrawRecieved;
-    if (noProgress) {
-      progress = 5;
-    } 
     if (partProgress) {
-      progress = 50;
       step = 1;
     } 
     if(finished) {
-      progress = 95;
       step = 2;
     }
     
     return (
-      <div>
-         {
-          !activated || finished ? null
-          : <Row style={progressContainer}>
-              <Col>
-                <Card className="cardContainer"> 
-                  <div style={progressElement}>
-                    <Progress  type="circle" percent={progress} />
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-         }
+      <div> 
         <Row>
           {
             !activated || finished ? null
@@ -61,17 +42,6 @@ class ProgressElement extends Component {
      </div>
     );
   }
-}
-
-const progressContainer = {
-  marginBottom: '2.5%',
-};
-
-const progressElement = {
-  display: 'flex', 
-  alignContent: 'center', 
-  alignItems: 'center', 
-  justifyContent:'center',
 }
 
 const stepContainer = {
