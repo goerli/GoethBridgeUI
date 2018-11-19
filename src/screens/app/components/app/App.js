@@ -72,8 +72,7 @@ class App extends Component {
 
   getEventData = () => {
     const { network, eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain } = this.state;
-    const eventObject = { eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain, network };
-    return eventObject;
+    return { eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain, network };
   };
 
   resetData = () => {
