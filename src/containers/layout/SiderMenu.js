@@ -36,12 +36,9 @@ class SiderMenu extends Component {
                 <Link to="/about" onClick={() => this.handleClick(4)}>About</Link> 
             </Menu.Item>
             <Menu.Item key="6">
-                <Link to="/wiki" onClick={() =>this.handleClick(5)}> Wiki </Link> 
-            </Menu.Item>    
-            <Menu.Item key="7">
                 <Link to="/blog" onClick={() =>this.handleClick(6)}> Blog </Link> 
             </Menu.Item>     
-            <Menu.Item key="8">
+            <Menu.Item key="7">
                 <Link to="/roadmap" onClick={() =>this.handleClick(7)}>Roadmap </Link> 
             </Menu.Item>              
         </SubMenu>

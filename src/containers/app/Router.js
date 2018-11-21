@@ -14,7 +14,6 @@ const RouterObj = () => (
       <Route path="/stats" component={Stats} />
       <Route path="/bridge" component={Bridge} />
       <Route path="/about" component={About} />
-      <Route path="/wiki" component={Wiki} />
       <Route path="/blog" component={Blog} />
       <Route path="/roadmap" component={RoadMap} />
     </Switch>
