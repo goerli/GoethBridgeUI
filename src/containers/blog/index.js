@@ -36,30 +36,30 @@ const BlogPage = () => (
           <Breadcrumb.Item>Blog</Breadcrumb.Item>
       </Breadcrumb>
       <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-      <h3 style={{ margin: '16px 0' }}>Goerli Blog</h3>
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 3,
-        }}
-        dataSource={listData}
-        renderItem={item => (
-          <List.Item
-            key={item.title}           
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
-              description={item.description}
-            />
-            {item.content}
-          </List.Item>
-        )}
-      />
+        <h3 style={{ margin: '16px 0' }}>Goerli Blog WIP</h3>
+        <List
+          itemLayout="vertical"
+          size="large"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 3,
+          }}
+          dataSource={listData}
+          renderItem={item => (
+            <List.Item
+              key={item.title}           
+            >
+              <List.Item.Meta
+                avatar={<Avatar src={item.avatar} />}
+                title={<a href={item.href}>{item.title}</a>}
+                description={item.description}
+              />
+              {item.content}
+            </List.Item>
+          )}
+        />
       </Content>
     </Layout>
   </Layout>

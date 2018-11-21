@@ -2,11 +2,10 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import About from '../about';
 import Blog from '../blog';
-// import Explorer from '../explorer';
-// import Faucet from '../faucet';
 import Stats from'../stats';
 import Wiki from '../wiki';
 import Bridge from '../bridge';
+import RoadMap from '../roadmap';
 
 const RouterObj = () => (
   <main>
@@ -17,6 +16,7 @@ const RouterObj = () => (
       <Route path="/about" component={About} />
       <Route path="/wiki" component={Wiki} />
       <Route path="/blog" component={Blog} />
+      <Route path="/roadmap" component={RoadMap} />
     </Switch>
   </main>
 );
