@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
 import NavigationHeader from '../layout/Header';
 import SiderMenu from '../layout/SiderMenu';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Steps } from 'antd';
 import ContractForm from './components/ContractForm';
 import TxSummary from './components/TxSummary';
 import ProgressElement from './components/ProgressElement';
@@ -14,6 +14,7 @@ import provider from '../../scripts/provider';
 import instantiateGoerliContract from '../../scripts/goerliContract'; 
 
 const { Content } = Layout;
+const Step = Steps.Step;
 
 class BridgePage extends Component {
   state= {
@@ -104,6 +105,7 @@ class BridgePage extends Component {
     const depositEventTriggered = this.state.eventRecipient !== null;
     const withdrawEventTriggered = this.state.goerliRecipient !== null;    
     const eventsDisplayed = depositEventTriggered && withdrawEventTriggered;
+    
     return (
       <Layout style={layoutStyle}>
       <NavigationHeader />
@@ -115,6 +117,15 @@ class BridgePage extends Component {
               <Breadcrumb.Item>Bridge</Breadcrumb.Item>
           </Breadcrumb>
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: '100%' }}>
+            {
+              dataProcessed
+              ? null 
+              : <Steps direction="vertical" size="small" current={1} style={{padding: '5%'}}>
+                  <Step title="Step 1" description="Select MetaMask Test Network you wish to exchange." />
+                  <Step title="Step 2" description="Enter ether amount." />
+                  <Step title="Step 3" description="Click send to bridge and wait for events to display to verify." />
+                </Steps> 
+            }
             {
               error !== null 
               ? <div className="errorContainer"> 
