@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import './App.css';
-import { Layout } from 'antd';
-import NavigationHeader from '../navigation/Header';
-import ContractForm from '../forms/ContractForm';
-import TxSummary from './TxSummary';
-import ProgressElement from './ProgressElement';
-import Error from './Error';
-import getNetwork from '../../../../scripts/network';
-import executeDeposit from '../../../../scripts/contract';
-import provider from '../../../../scripts/provider';
-import instantiateGoerliContract from '../../../../scripts/goerliContract'; 
+import NavigationHeader from '../layout/Header';
+import SiderMenu from '../layout/SiderMenu';
+import { Layout, Menu, Breadcrumb, Icon, Steps } from 'antd';
+import ContractForm from './components/ContractForm';
+import TxSummary from './components/TxSummary';
+import ProgressElement from './components/ProgressElement';
+import Error from './components/Error';
+import getNetwork from '../../scripts/network';
+import executeDeposit from '../../scripts/contract';
+import provider from '../../scripts/provider';
+import instantiateGoerliContract from '../../scripts/goerliContract'; 
 
-const { Footer, Content } = Layout;
+const { Content } = Layout;
+const Step = Steps.Step;
 
-class App extends Component {
+class BridgePage extends Component {
   state= {
     amount: 0,
     network: null,
@@ -103,33 +105,56 @@ class App extends Component {
     const depositEventTriggered = this.state.eventRecipient !== null;
     const withdrawEventTriggered = this.state.goerliRecipient !== null;    
     const eventsDisplayed = depositEventTriggered && withdrawEventTriggered;
+    
     return (
-      <Layout className="layoutContainer">
-        <NavigationHeader />
-        <Content>
-          {
-            error !== null 
-            ? <div className="errorContainer"> 
-                <Error errorMessage={error} /> 
-              </div> 
-            : null
-          }
-          <div className="formDivContainer">
-            <ContractForm activeNetwork={network} reset={this.resetData} extractData={this.processRequest} eventsComplete={eventsDisplayed}/>
-          </div>
-          <div style={{margin: '0 auto' }}>
-            <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />           
-          </div>
-          <div>
+      <Layout style={layoutStyle}>
+      <NavigationHeader />
+      <Layout>
+        <SiderMenu />
+        <Layout style={{ padding: '0 24px 24px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>Network</Breadcrumb.Item>
+              <Breadcrumb.Item>Bridge</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: '100%' }}>
             {
-              depositEventTriggered && withdrawEventTriggered ? <TxSummary txData={this.getEventData()} /> : null
+              dataProcessed
+              ? null 
+              : <Steps direction="vertical" size="small" current={1} style={{padding: '5%'}}>
+                  <Step title="Step 1" description="Select MetaMask Test Network you wish to exchange." />
+                  <Step title="Step 2" description="Enter ether amount." />
+                  <Step title="Step 3" description="Click send to bridge and wait for events to display to verify." />
+                </Steps> 
             }
-          </div>
-        </Content>
-        <Footer className="footer"> G&ouml;rli </Footer>
+            {
+              error !== null 
+              ? <div className="errorContainer"> 
+                  <Error errorMessage={error} /> 
+                </div> 
+              : null
+            }
+            <div className="formDivContainer">
+              <ContractForm activeNetwork={network} reset={this.resetData} extractData={this.processRequest} eventsComplete={eventsDisplayed}/>
+            </div>
+            <div style={{margin: '0 auto' }}>
+              <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />           
+            </div>
+            <div>
+              {
+                depositEventTriggered && withdrawEventTriggered ? <TxSummary txData={this.getEventData()} /> : null
+              }
+            </div>
+          </Content>
+        </Layout>
       </Layout>
+    </Layout>
     );
   }
 }
 
-export default App;
+const layoutStyle = {
+  flex: 1, 
+  height: '100vh'
+};
+
+export default BridgePage;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import './ContractForm.css';
 import { Button, Row, Col, Card } from 'antd';
-import FormInputText from '../inputs/FormInputText';
+import FormInputText from './FormInputText';
 
 class ContractForm extends Component {
 
