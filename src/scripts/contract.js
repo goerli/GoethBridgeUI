@@ -2,12 +2,13 @@ const ethers = require('ethers');
 
 const executeDeposit = async (provider, amount, network, pubKey) => {
   const { contract, txCount } = await instantiateContract(provider, pubKey, network);
+  debugger;
   await executeTransaction(contract, amount, txCount, pubKey, provider, network);
   return contract;
 };
 
 const instantiateContract = async (provider, pubKey, network) => {
-  const txCount = await provider.getTransactionCount(pubKey[0]);
+  const txCount = await provider.getTransactionCount(pubKey);
   const abi = [{"constant":false,"inputs":[{"name":"_recipient","type":"address"},{"name":"_toChain","type":"uint256"}],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_owner","type":"address"}],"name":"ContractCreation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_recipient","type":"address"},{"indexed":false,"name":"_value","type":"uint256"},{"indexed":false,"name":"_toChain","type":"uint256"}],"name":"Deposit","type":"event"}];
   const signer = provider.getSigner();
   let contractAddress;
@@ -30,7 +31,7 @@ const executeTransaction = async (contract, amount, txCount, pubKey, provider, n
     nonce: txCount,
     value: wei,
   };
-  let tx = await contract.functions.deposit(pubKey[0], 6284, overrideOptions);
+  let tx = await contract.functions.deposit(pubKey, 6284, overrideOptions);
 };
 
 export default executeDeposit;
