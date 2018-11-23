@@ -33,7 +33,7 @@ class ProgressElement extends Component {
                     <Step title="Withdraw Recieved" description="Withdraw event on Goerli recieved." />
                   </Steps>
                   <br />
-                  <p style={text}> could take a few minutes... </p>
+                  <p style={text}> hello friends, be patient it could take a few moments... </p>
                 </div>
               </Card>
             </Col>    
@@ -56,6 +56,7 @@ const text = {
   fontWeight: '500',
   color: '#AFA392',
   textAlign: 'center',
+  paddingTop: '5%',
 };
 
 export default ProgressElement;

@@ -22,10 +22,10 @@ class NavigationHeader extends Component {
                     </span>
                   }>
                   <MenuItemGroup title="Links">
-                    <Menu.Item key="setting:1"><a href='https://github.com/goerli'>Github</a></Menu.Item>
-                    <Menu.Item key="setting:2"><a href='https://gitter.im/goerli'>Gitter</a></Menu.Item>
-                    <Menu.Item key="setting:3"><a href='https://blockscout.com/eth/goerli'>Goerli Explorer</a></Menu.Item>
-                    <Menu.Item key="setting:4"><a href='https://stats.goerli.net/'>Goerli Stats</a></Menu.Item>
+                    <Menu.Item key="setting:1"><a href='https://github.com/goerli' target="_blank" rel="noopener noreferrer" >Github</a></Menu.Item>
+                    <Menu.Item key="setting:2"><a href='https://gitter.im/goerli' target="_blank" rel="noopener noreferrer">Gitter</a></Menu.Item>
+                    <Menu.Item key="setting:3"><a href='https://blockscout.com/eth/goerli' target="_blank" rel="noopener noreferrer">Goerli Explorer</a></Menu.Item>
+                    <Menu.Item key="setting:4"><a href='https://stats.goerli.net/' target="_blank" rel="noopener noreferrer">Goerli Stats</a></Menu.Item>
                   </MenuItemGroup>                
                 </SubMenu>
             </Menu>

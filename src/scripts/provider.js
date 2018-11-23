@@ -9,7 +9,6 @@ const provider = async () => {
     try {
       pubKey = await window.ethereum.enable();
       providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider)
-      const signer = providerObj.getSigner()
     } catch (error) {
       console.log("oops we caught an error", error)
     }
