@@ -7,15 +7,15 @@ const provider = async () => {
   if (window.ethereum) {
     window.web3 = new Web3(window.ethereum);
     try {
-      pubKey = await window.ethereum.enable();
+      pubKey = await window.ethereum.enable()[0];
       providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider)
-      const signer = providerObj.getSigner()
     } catch (error) {
       console.log("oops we caught an error", error)
     }
   }
   else if (window.web3) {
-    window.web3 = new Web3(window.web3.currentProvider);
+    providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider);
+	  pubKey = await window.web3.eth.defaultAccount;
   } else {
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
   }
