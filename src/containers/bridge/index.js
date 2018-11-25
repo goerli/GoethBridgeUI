@@ -109,7 +109,7 @@ class BridgePage extends Component {
       <NavigationHeader />
       <Layout>
         <SiderMenu />
-        <Layout style={{ padding: '0 24px 24px' }}>
+        <Layout style={{ padding: '0 24px 24px', height: '100%' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Network</Breadcrumb.Item>
               <Breadcrumb.Item>Bridge</Breadcrumb.Item>
@@ -134,12 +134,17 @@ class BridgePage extends Component {
             <div className="formDivContainer">
               <ContractForm activeNetwork={network} reset={this.resetData} extractData={this.processRequest} eventsComplete={eventsDisplayed}/>
             </div>
+<<<<<<< HEAD
+            <div style={{margin:'0 auto', paddingTop: '2.5%' }}>
+              <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />           
+=======
             <div style={{margin: '0 auto' }}>
               <ProgressElement activated={dataProcessed} depositRecieved={depositEventTriggered} withdrawRecieved={withdrawEventTriggered} />
+>>>>>>> 20238691af4a9b92460af39fe464869cd6e2320b
             </div>
             <div>
               {
-                depositEventTriggered && withdrawEventTriggered ? <TxSummary txData={this.getEventData()} /> : null
+                depositEventTriggered && withdrawEventTriggered ? <TxSummary style={{paddingTop: '2.5%'}} txData={this.getEventData()} /> : null
               }
             </div>
           </Content>

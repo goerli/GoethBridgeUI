@@ -56,7 +56,7 @@ const customPanelStyle = {
 
 const layoutStyle = {
   flex: 1, 
-  height: '100vh'
+  height: '100%'
 };
 
 export default AboutPage;
