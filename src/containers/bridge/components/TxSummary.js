@@ -105,19 +105,16 @@ const cardContainer = {
 };
 
 const titleStyles = {
-  // fontSize: '1.1em',
   fontWeight: '500',
   color: '#AFA392',
 };
 
 const headerStyles = {
-  // fontSize: '1.3em',
   fontWeight: '500',
   color: '#AFA392',
 };
 
 const dataStyles = {
-  // fontSize: '1.1em',
   fontWeight: '300',
   color: '#AFA392',
 }
