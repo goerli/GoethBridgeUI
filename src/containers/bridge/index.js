@@ -33,13 +33,11 @@ class BridgePage extends Component {
     goerliValue: null,
     goerliResponse: null,
     desopsitTxHash: null,
-    // goerliBlockHash:
   };
 
   async componentDidMount() {
     const selectedNetwork = await getNetwork();
     const { providerObj, pubKey } = await provider();
-    console.log({pubKey});
     this.setState({ network: selectedNetwork, provider: providerObj, pubKey }, () => {
       if (selectedNetwork === 'main') {
         alert('Are you sure you want to burn real ether for GOETH? Please change your MetaMask settings!')
@@ -65,8 +63,6 @@ class BridgePage extends Component {
 
   processRequest = async ({amount}) => {
     const { provider, pubKey, network } = this.state;
-    console.log({provider, pubKey, network});
-    
     if (network !== 'main') {
       this.setState({ amount, dataProcessed: true }, () => {});
       const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);
@@ -74,7 +70,6 @@ class BridgePage extends Component {
       const goerliContract = await instantiateGoerliContract();
 
       contract.on("Deposit", (_recipient, _value, _toChain, event) => {
-        console.log('in deposit', {_recipient, _value, _toChain, event});
         const eAddress = _recipient.toLowerCase();
         const cAddress = pubKey.toLowerCase();
         if (eAddress === cAddress) {
@@ -88,7 +83,6 @@ class BridgePage extends Component {
       });
 
 	    goerliContract.on("Withdraw", (_recipient, _value, _fromChain, event) => {
-        console.log('in withdraw', {_recipient, _value, _fromChain, event});
         const gAddress = _recipient.toLowerCase();
         const cAddress = pubKey.toLowerCase();
         if (gAddress === cAddress) {
