@@ -31,7 +31,7 @@ class TxSummary extends Component {
   handleChange = () => {}
 
   render() {
-    const { eventEvent, goerliRecipient  } = this.props.txData;
+    const { eventEvent, goerliResponse } = this.props.txData;
     const { address, blockHash, blockNumber, data, event, eventSignature, topics, transactionHash, transactionIndex } = eventEvent;
     return (
       <div>
@@ -71,8 +71,17 @@ class TxSummary extends Component {
                 <Panel header={'Withdraw Contract Event'} key="1" style={customPanelStyle}>
                   <Card style={cardContainer}>
                     <div style={textContainer}>                      
-                      <p style={headerStyles}>Address </p> 
-                      <p style={dataStyles}>{goerliRecipient} </p>
+                      <p style={headerStyles}>Contract Address </p> 
+                      <p style={dataStyles}>{goerliResponse.address} </p>
+                      <p style={headerStyles}>Block Hash </p> 
+                      <p style={dataStyles}>{goerliResponse.blockHash} </p>
+                      <p style={headerStyles}>Block Number </p> 
+                      <p style={dataStyles}>{goerliResponse.blockNumber} </p>
+                      <p style={headerStyles}>Transaction Hash </p> 
+                      <p style={dataStyles}> 
+                        <a href={`https://blockscout.com/eth/goerli/tx/${goerliResponse.transactionHash}`} target="_blank" rel="noopener noreferrer"> {transactionHash} </a> </p>
+                      <p style={headerStyles}>Recipient Address </p> 
+                      <p style={dataStyles}>{goerliResponse._recipient} </p>
                     </div>           
                   </Card>
                 </Panel>
@@ -96,19 +105,19 @@ const cardContainer = {
 };
 
 const titleStyles = {
-  fontSize: '1.1em',
+  // fontSize: '1.1em',
   fontWeight: '500',
   color: '#AFA392',
 };
 
 const headerStyles = {
-  fontSize: '1.3em',
+  // fontSize: '1.3em',
   fontWeight: '500',
   color: '#AFA392',
 };
 
 const dataStyles = {
-  fontSize: '1.1em',
+  // fontSize: '1.1em',
   fontWeight: '300',
   color: '#AFA392',
 }
