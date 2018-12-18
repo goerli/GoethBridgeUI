@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
 import NavigationHeader from '../layout/Header';
-import SiderMenu from '../layout/SiderMenu';
-import { Layout, Menu, Breadcrumb, Icon, Steps, Button } from 'antd';
+import { Layout, Steps, Button } from 'antd';
 import ContractForm from './components/ContractForm';
 import TxSummary from './components/TxSummary';
 import ProgressElement from './components/ProgressElement';
@@ -138,12 +136,7 @@ class BridgePage extends Component {
       <Layout style={layoutStyle}>
       <NavigationHeader />
       <Layout>
-        <SiderMenu />
         <Layout style={{ padding: '0 24px 24px', height: '100%' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Network</Breadcrumb.Item>
-              <Breadcrumb.Item>Bridge</Breadcrumb.Item>
-          </Breadcrumb>
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: '100%' }}>
             {
               dataProcessed && !eventsDisplayed
