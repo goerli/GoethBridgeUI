@@ -138,6 +138,7 @@ class BridgePage extends Component {
       <Layout>
         <Layout style={{ padding: '0 24px 24px', height: '100%' }}>
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: '100%' }}>
+          <div style={{ marginLeft: '5%'}}>
             {
               dataProcessed && !eventsDisplayed
               ? <div>
@@ -161,6 +162,7 @@ class BridgePage extends Component {
                 </div>
               : null
             }
+            </div>
             {
               dataProcessed
               ? null
