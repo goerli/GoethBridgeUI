@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'NeueMontreal';
+    font-style: 'Bold';
+    font-weight: 400;
+    src: url('../../../fonts/NeueMontreal-Bold.otf'); /* IE9 Compat Modes */
+  }
+
+  .headerStyles {
+    font-size: 3.5em;
+    font-family: 'NeueMontreal, Bold';
+  }

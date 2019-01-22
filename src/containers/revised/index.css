@@ -1,25 +1,44 @@
+@font-face {
+  font-family: 'NeueMontreal';
+  font-style: 'Regular';
+  font-weight: 400;
+  src: url('../../fonts/NeueMontreal-Regular.otf'); /* IE9 Compat Modes */
+}
+  
 .App {
-    text-align: center;
-  }
+  text-align: center;
+}
   
-  .App-header {
-    /* background-color: #282c34; */
-    min-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    /* color: white; */
-  }
+.App-header {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
   
-  .txtAmount {
-    width: 300px;
-    padding: 22px;
-    font-size: 20px;
-    height: 25px;
-  }
-  
-  .inputContainer {
-    display: flex;
-  }
+.txtAmount {
+  width: 30vw;
+  padding: 22px;
+  font-size: 20px;
+  font-family: 'NeueMontreal';
+  border-color: black;
+}
+
+.inputContainer {
+  display: flex;
+  height: 50px;
+}
+
+.netowrkStyles {
+  font-family: 'NeueMontreal, Regular';
+}
+
+.btnExchange {
+  font-family: 'NeueMontreal, Regular';
+}
+
+.networkName {
+  color: #3eda2b;
+}

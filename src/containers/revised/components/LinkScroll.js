@@ -8,14 +8,13 @@ class LinkScroll extends Component {
   };
 
   componentDidMount = () => {
-    console.log({ constants });
     this.generateBatch(5);
     this.createScrollView();
   };
 
   createScrollView = () => {
     setInterval(() => { 
-      this.generateBatch(5);
+      this.generateBatch(2);
     }, 25000);
   };
 
@@ -32,22 +31,19 @@ class LinkScroll extends Component {
       data.push({ href: constants.HREF_CONTRIBUTE, text: constants.TITLE_CONTRIBUTE });
       data.push({ href: constants.HREF_GOERLICON, text: constants.TITLE_GOERLICON });
     }
-    this.setState({ linkData: [...this.state.linkData, ...data] }, () => {
-      console.log(this.state, 'done');      
-    })
+    this.setState({ linkData: [...this.state.linkData, ...data] });
   };
 
   render() {
     const { linkData } = this.state;
     return (
       <div className="linkContainer">
-        <p> 
-          <a href="https://goerli.net/">goerli-con </a>
+        <p>          
           {
             linkData.length === 0 
             ? null
             : linkData.map((item, index) => {
-                return <a key={index} href={item.href} target="_blank" rel="noopener noreferrer"> {item.text} </a> 
+                return <a key={index} className="pElements" href={item.href} target="_blank" rel="noopener noreferrer"> {item.text} </a> 
               })
           }
         </p>

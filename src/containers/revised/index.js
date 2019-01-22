@@ -11,12 +11,12 @@ class BridgeContainer extends Component {
         <div className="App">
           <header className="App-header">        
             <Header />
-            <p>
-              <code>Network</code> ropsten          
+            <p className="netowrkStyles">
+              selected network:  <code className="networkName"> ropsten </code>
             </p>
             <div className="inputContainer">
-              <input className="txtAmount" placeholder="Exchange amount" />
-              <button style={btnExchange}> Exchange </button>   
+              <input className="txtAmount" placeholder="Ex: 1.5 (amount)" />
+              <button style={btnExchange} className="btnExchange"> exchange </button>   
             </div>
           </header>   
         </div>
@@ -27,13 +27,14 @@ class BridgeContainer extends Component {
 }
 
 const btnExchange = {
-  width: '200px',
-  height: '100%',
-  padding: '24px',
+  width: '20vw',
   fontSize: '20px',
   margin: '0 auto',
+  alignText: 'center',
+  justifyContent: 'center',
   flex: 1,
   backgroundColor: '#3eda2b',
+  borderColor: 'black',
 };
 
 export default BridgeContainer;

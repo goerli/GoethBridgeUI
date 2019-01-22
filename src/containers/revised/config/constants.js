@@ -7,8 +7,6 @@ export const HREF_STATS = 'https://stats.goerli.net/';
 export const HREF_ABOUT = 'https://goerli.net/#about';
 export const HREF_CONTRIBUTE = 'https://goerli.net/#contribute';
 export const HREF_EXPLORER = 'https://blockscout.com/eth/goerli';
-
-
 export const TITLE_GOERLICON = 'goerli-con';
 export const TITLE_WEBSITE = 'website';
 export const TITLE_GITHUB = 'github';

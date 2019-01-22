@@ -59,3 +59,14 @@ a:hover {
     transform: translateX(-100%); 
   }
 }
+
+@font-face {
+  font-family: 'NeueMontreal';
+  font-style: 'Light';
+  font-weight: 400;
+  src: url('../../../fonts//NeueMontreal-Light.otf'); /* IE9 Compat Modes */
+}
+
+.pElements {
+  font-family: 'NeueMontreal, Light';
+}

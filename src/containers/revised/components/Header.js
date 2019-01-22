@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
+import './Header.css'
 
 class Header extends Component {
   render() {
     return (
-      <div style={headerStyles}> .com UI </div>
+      <div className="headerStyles"> .com Bridge UI </div>
     );
   }
 }
-
-const headerStyles = {
-  fontSize: '3.5em',
-};
-
 
 export default Header;
