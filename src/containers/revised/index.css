@@ -1,0 +1,25 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-header {
+    /* background-color: #282c34; */
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    /* color: white; */
+  }
+  
+  .txtAmount {
+    width: 300px;
+    padding: 22px;
+    font-size: 20px;
+    height: 25px;
+  }
+  
+  .inputContainer {
+    display: flex;
+  }

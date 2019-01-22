@@ -1,0 +1,61 @@
+.linkContainer {
+  height: 50px;	
+  /* overflow: hidden; */
+  position: relative;
+  /* left: -50%; */
+}
+.linkContainer p {
+  font-size: 1.3em;
+  color: black;
+  position: absolute;
+  width: 1000%;
+  height: 100%;
+  margin: 0;
+  line-height: 50px;
+  text-align: flex-start;
+  /* Starting position */
+  -moz-transform:translateX(100%);
+  -webkit-transform:translateX(100%);	
+  transform:translateX(100%);
+  /* Apply animation to this element */	
+  -moz-animation: linkContainer 35s linear infinite;
+  -webkit-animation: linkContainer 35s linear infinite;
+  animation: linkContainer 180s linear infinite;
+  animation-iteration-count: infinite;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  margin-right: 0.15%;
+}
+
+a:hover {
+  color:#00A0C6; 
+  text-decoration:none; 
+  cursor:pointer;  
+}
+
+/* Move it (define the animation) */
+@-moz-keyframes linkContainer {
+  0%   { -moz-transform: translateX(100%); }
+  100% { -moz-transform: translateX(-100%); }
+}
+
+@-webkit-keyframes linkContainer {
+  0%   { -webkit-transform: translateX(100%); }
+  100% { -webkit-transform: translateX(-100%); }
+}
+
+@keyframes linkContainer {
+  0%   { 
+    -moz-transform: translateX(1%); /* Firefox bug fix */
+    -webkit-transform: translateX(1%); /* Firefox bug fix */
+    transform: translateX(1%); 		
+  }
+  100% { 
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%); 
+  }
+}
