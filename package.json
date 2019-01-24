@@ -27,5 +27,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://142.93.146.160"
+  "proxy": "https://142.93.146.160"
 }
