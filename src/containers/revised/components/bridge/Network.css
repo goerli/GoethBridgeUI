@@ -1,0 +1,27 @@
+@font-face {
+font-family: 'Sporting Grotesque_Regular';
+src:    url('../../../../fonts/Sporting_Grotesque-Regular_web.eot');
+src:    url('../../../../fonts/Sporting_Grotesque-Regular_web.eot?#iefix') format('embedded-opentype'),
+        url('../../../../fonts/Sporting_Grotesque-Regular_web.woff') format('woff'),
+        url('../../../../fonts/Sporting_Grotesque-Regular_web.woff2') format('woff2'),
+        url('../../../../fonts/Sporting_Grotesque-Regular_web.ttf') format('truetype'),
+        url('../../../../fonts/Sporting_Grotesque-Regular_web.svg#svgFontName') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+
+.netowrkStyles {
+  font-family: 'Sporting Grotesque_Regular';
+}
+
+.networkName {
+  color: #93dcb9;
+  text-transform: uppercase;
+}
+
+.networkContainer {
+  right: 5%;
+  top: 2.5%;
+  position: absolute;
+}

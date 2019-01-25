@@ -1,40 +1,43 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
-import LinkScroll from './components/LinkScroll';
 import './index.css'
+import Loader from './components/Loader';
+import Network from './components/bridge/Network';
+import BridgeForm from './components/bridge/BridgeForm';
+
+import { Spring } from 'react-spring'
 
 class BridgeContainer extends Component {
+  state = {
+    loading: true,
+  };
+  
+  componentDidMount = () => {
+    setTimeout(() => { 
+      this.displayBridge();
+    }, 500);
+  }
+
+  displayBridge = () => {
+    this.setState({ loading : false });
+  }
+
   render() {
+    const { loading } = this.state;
     return (
       <div>
-        <LinkScroll />  
+        <Loader isLoading={loading} display={this.displayBridge}/>
+        <Network isLoading={loading} />
         <div className="App">
           <header className="App-header">        
-            <Header />
-            <p className="netowrkStyles">
-              selected network:  <code className="networkName"> ropsten </code>
-            </p>
-            <div className="inputContainer">
-              <input className="txtAmount" placeholder="Ex: 1.5 (amount)" />
-              <button style={btnExchange} className="btnExchange"> exchange </button>   
-            </div>
+            <Header />  
+            <BridgeForm />                    
           </header>   
         </div>
-        <LinkScroll />  
       </div>
     );
   }
 }
 
-const btnExchange = {
-  width: '20vw',
-  fontSize: '20px',
-  margin: '0 auto',
-  alignText: 'center',
-  justifyContent: 'center',
-  flex: 1,
-  backgroundColor: '#3eda2b',
-  borderColor: 'black',
-};
 
 export default BridgeContainer;
