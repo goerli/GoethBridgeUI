@@ -5,7 +5,7 @@ class BridgeForm extends React.Component {
   render () {
     return (
       <div className="inputContainer">
-        <input className="txtAmount" placeholder="Ex. 1.5" />
+        <input className="txtAmount" placeholder="enter testnet ether amount for goeth exchange" />
         <button style={btnExchange} className="btnExchange"> exchange </button>   
       </div>
     )

@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from './components/Header';
 import './index.css'
 import Loader from './components/Loader';
 import Network from './components/bridge/Network';
 import BridgeForm from './components/bridge/BridgeForm';
-
-import { Spring } from 'react-spring'
+import provider from '../../scripts/provider';
+import getNetwork from '../../scripts/network';
+import { initializeNetwork } from '../store/actionCreator';
 
 class BridgeContainer extends Component {
   state = {
     loading: true,
   };
   
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    try {
+      const selectedNetwork = await getNetwork();
+      const { providerObj, pubKey } = await provider();   
+      this.props.initializeNetwork({ selectedNetwork, providerObj, pubKey });
+    } catch (err) {
+      console.log(err);      
+    }
     setTimeout(() => { 
       this.displayBridge();
     }, 500);
@@ -40,4 +49,4 @@ class BridgeContainer extends Component {
 }
 
 
-export default BridgeContainer;
+export default connect(null, { initializeNetwork })(BridgeContainer);
