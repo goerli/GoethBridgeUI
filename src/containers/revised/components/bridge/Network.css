@@ -18,10 +18,11 @@ font-style: normal;
 .networkName {
   color: #93dcb9;
   text-transform: uppercase;
+  padding-left: 5px;
 }
 
 .networkContainer {
-  right: 5%;
-  top: 2.5%;
-  position: absolute;
+  margin: 0 auto;
+  font-size: 0.8em;
+  padding-top: 2.5%;
 }

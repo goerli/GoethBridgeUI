@@ -4,6 +4,7 @@ const initialState = {
   network: '',
   provider: '',
   pubkKey: '',
+  componentIndex: 0,
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +17,12 @@ export default function (state = initialState, action) {
         pubkKey: action.payload.pubKey,
       };
     }
+    case actionTypes.SET_APP_COMPONENT_STATE: {
+      return {
+        ...state, 
+        componentIndex: action.payload,
+      };
+    }    
     default: return state;
   }
 }

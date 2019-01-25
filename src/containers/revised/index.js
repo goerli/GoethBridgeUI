@@ -19,12 +19,12 @@ class BridgeContainer extends Component {
       const selectedNetwork = await getNetwork();
       const { providerObj, pubKey } = await provider();   
       this.props.initializeNetwork({ selectedNetwork, providerObj, pubKey });
+      setTimeout(() => { 
+        this.displayBridge();
+      }, 500);
     } catch (err) {
       console.log(err);      
     }
-    setTimeout(() => { 
-      this.displayBridge();
-    }, 500);
   }
 
   displayBridge = () => {
@@ -36,11 +36,11 @@ class BridgeContainer extends Component {
     return (
       <div>
         <Loader isLoading={loading} display={this.displayBridge}/>
-        <Network isLoading={loading} />
         <div className="App">
           <header className="App-header">        
             <Header />  
-            <BridgeForm />                    
+            <BridgeForm />
+            <Network isLoading={loading} />                  
           </header>   
         </div>
       </div>
