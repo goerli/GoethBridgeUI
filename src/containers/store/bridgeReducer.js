@@ -4,7 +4,9 @@ const initialState = {
   network: '',
   provider: '',
   pubkKey: '',
-  componentIndex: 0,
+  componentIndex: 1,
+  depositEventData: null,
+  withdrawlEventData: null,
 };
 
 export default function (state = initialState, action) {
@@ -22,7 +24,19 @@ export default function (state = initialState, action) {
         ...state, 
         componentIndex: action.payload,
       };
-    }    
+    }  
+    case actionTypes.SET_DEPOSIT_EVENT_TX_DATA: {
+      return {
+        ...state, 
+        depositEventData: action.payload,
+      };
+    } 
+    case actionTypes.SET_WITHDRAWL_EVENT_TX_DATA: {
+      return {
+        ...state, 
+        withdrawlEventData: action.payload,
+      };
+    } 
     default: return state;
   }
 }

@@ -21,3 +21,24 @@ export const setAppComponentState = (index) => {
     });
   };
 }
+
+export const setDepositEventData = (data) => {
+  console.log({ data });
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_DEPOSIT_EVENT_TX_DATA,
+      payload: data,
+    });
+  };
+};
+
+export const setWithdrawlEventData = (data) => {
+  console.log({ data });
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_WITHDRAWL_EVENT_TX_DATA,
+      payload: data,
+    });
+  };
+};
+

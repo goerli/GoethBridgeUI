@@ -1,13 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './BridgeForm.css'
-import { setAppComponentState } from '../../../store/actionCreator';
+import {
+  setAppComponentState,
+  setDepositEventData,
+  setWithdrawlEventData,
+} from '../../../store/actionCreator';
 import executeDeposit from '../../../../scripts/contract';
 import instantiateGoerliContract from '../../../../scripts/goerliContract';
+import EventDisplay from './EventDisplay';
+import TxDisplay from './TxDisplay';
 
 class BridgeForm extends React.Component {
   state = {
     amount: '',
+    component: 0,
+    deposit: false,
+    withdrawl: false,
   };
 
   handleChange = (e) => {
@@ -23,6 +32,7 @@ class BridgeForm extends React.Component {
       this.depositEvent(contract, pubKey);
       this.withdrawlEvent(goerliContract, pubKey);
     }
+    this.setState({ component: 1 });
   };
 
   depositEvent = (contract, pubKey) => {
@@ -30,9 +40,8 @@ class BridgeForm extends React.Component {
       const eAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (eAddress === cAddress) {
-        console.log({
-          _recipient, _value, _toChain, event
-        });
+        const data = { _recipient, _value, _toChain, event };
+        this.processEvents('deposit', data);
       }
     });
   }
@@ -42,45 +51,69 @@ class BridgeForm extends React.Component {
       const gAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (gAddress === cAddress) {
-        const {
-          address, blockHash, blockNumber, data, transactionHash,
-         } = event;
-        const responseObject = {
-          address,
-          blockHash,
-          blockNumber,
-          data,
-          transactionHash,
-          _recipient,
-        };
-        console.log({
-          _recipient, _value, _fromChain, responseObject,
-        });
+        const { address, blockHash, blockNumber, data, transactionHash } = event;
+        const res = { address, blockHash, blockNumber, data, transactionHash, _recipient };
+        this.processEvents('withdrawl', res);
       }
     });
+  }
+
+  processEvents = async (type, data) => {
+    const { deposit, withdrawl } = this.state;
+    if (type === 'deposit') {
+      await this.props.setDepositEventData(data)
+      this.setState({ deposit: true }, () => {
+        console.log('depo', { data });
+        
+        if (withdrawl === true) this.setState({ component: 2 });
+      });
+    } else {
+      await this.props.setWithdrawlEventData(data);
+      console.log('with', { data });
+      this.setState({ withdrawl: true }, () => {
+        if (deposit === true) this.setState({ component: 2 });
+      });
+     
+    }
   }
 
   render () {
     const { network } = this.props;
     const isMainnet = network === 'main';
-    const { amount } = this.state;
+    const { amount, component } = this.state;
     return (
-      <div className="inputContainer">
-        <input 
-          className="txtAmount" 
-          placeholder="enter testnet ether amount for goeth exchange" 
-          disabled={isMainnet}
-          onChange={this.handleChange}
-          value={amount}
-          />
-        <button 
-          style={ isMainnet ? btnDisabled : btnEnabled } 
-          className="btnExchange"
-          disabled={isMainnet}
-          onClick={this.executeExchange}
-          > 
-            exchange 
-        </button>   
+      <div >
+        {
+          component === 0
+          ? <div className="inputContainer">
+              <input 
+                className="txtAmount" 
+                placeholder="enter testnet ether amount for goeth exchange" 
+                disabled={isMainnet}
+                onChange={this.handleChange}
+                value={amount}
+                />
+              <button 
+                style={ isMainnet ? btnDisabled : btnEnabled } 
+                className="btnExchange"
+                disabled={isMainnet}
+                onClick={this.executeExchange}
+                > 
+                  exchange 
+              </button> 
+            </div>
+          : null
+        }
+        {
+          component === 1 
+          ? <EventDisplay />
+          : null
+        }
+        {
+          component === 2
+          ? <TxDisplay />
+          : null
+        }
       </div>
     )
   }
@@ -114,8 +147,12 @@ const btnDisabled = {
 }
 
 const mapStateToProps = ({ network }) => {
-  const { selectedNetwork, providerObj, pubKey } = network;
-  return { network: selectedNetwork, provider: providerObj, pubKey};
+  const { selectedNetwork, providerObj, pubKey, depositEventData, withdrawlEventData } = network;
+  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData};
 };
 
-export default connect(mapStateToProps, { setAppComponentState })(BridgeForm);
+export default connect(mapStateToProps, {
+  setAppComponentState,
+  setDepositEventData,
+  setWithdrawlEventData,
+})(BridgeForm);

@@ -1,34 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './Network.css'
 
 class EventDisplay extends React.Component {
  render () {
-  const { isLoading, network } = this.props;
     return (
       <div className="networkContainer">
-        {
-          isLoading
-          ? null
-          : <p className="netowrkStyles">
-              Network detected:  
-              <code className="networkName"> 
-                { 
-                  network === ''
-                  ? 'Pending'
-                  : network 
-                } 
-              </code>
-            </p>
-        }       
+        <div>
+          <h3> 
+            Waiting for pending events ....:) 
+          </h3>
+          <span className="loader"><span className="loader-inner"></span></span>
+        </div>
       </div>
     )
  }
 }
 
-const mapStateToProps = ({ network }) => {
-  const { selectedNetwork, providerObj, pubKey } = network;
-  return { network: selectedNetwork, provider: providerObj, pubKey};
-};
-
-export default connect(mapStateToProps, null)(EventDisplay);
+export default EventDisplay;

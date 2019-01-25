@@ -9,7 +9,7 @@ class Network extends React.Component {
       <div className="networkContainer">
         {
           isLoading
-          ? null
+          ? <p> Network Loading</p>
           : <p className="netowrkStyles">
               Network detected:  
               <code className="networkName"> 
