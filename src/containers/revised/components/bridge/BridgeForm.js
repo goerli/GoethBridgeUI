@@ -79,7 +79,7 @@ class BridgeForm extends React.Component {
 
   render () {
     const { network } = this.props;
-    const isMainnet = network === 'main';
+    const isMainnet = network === "1";    
     const { amount, component } = this.state;
     return (
       <div >

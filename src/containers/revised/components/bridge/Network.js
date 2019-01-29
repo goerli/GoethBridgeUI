@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import './Network.css'
 
 class Network extends React.Component {
+
  render () {
-  const { isLoading, network } = this.props;
+  const { isLoading, network } = this.props;  
     return (
       <div className="networkContainer">
         {

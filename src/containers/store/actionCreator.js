@@ -1,10 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const initializeNetwork = (network, provider, pubKey) => {
+export const initializeNetwork = (network) => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.INITIALIZE_NETWORK,
-      payload: { network, provider, pubKey },
+      payload: { network },
     });
   };
 };
@@ -23,7 +23,6 @@ export const setAppComponentState = (index) => {
 }
 
 export const setDepositEventData = (data) => {
-  console.log({ data });
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_DEPOSIT_EVENT_TX_DATA,
@@ -33,7 +32,6 @@ export const setDepositEventData = (data) => {
 };
 
 export const setWithdrawlEventData = (data) => {
-  console.log({ data });
   return (dispatch) => {
     dispatch({
       type: actionTypes.SET_WITHDRAWL_EVENT_TX_DATA,

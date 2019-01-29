@@ -17,17 +17,25 @@ class BridgeContainer extends Component {
     try {
       window.addEventListener('load', async () => {
         const { web3 } = window;
-        if (typeof web3 !== 'undefined') {
-          let pub = await window.ethereum.enable();  
-          let providerObj = await new ethers.providers.Web3Provider(window.web3.currentProvider)
-          console.log(providerObj);         
-          
-          this.props.initializeNetwork({ 'selectedNetwork': 'ropsten', providerObj, pubKey: pub[0] });
-          this.displayBridge();
-          //console.log({ providerObj });     
-        } else {
-          console.log('No web3? You should consider trying MetaMask!')
-          // add fallback
+        if (typeof window.ethereum === 'undefined') {
+          alert('Looks like you need a Dapp browser to get started.')
+        } else {        
+          await window.ethereum.enable()
+          .catch((reason) => {
+            if (reason === 'User rejected provider access') {
+              // The user didn't want to sign in!
+            } else {        
+              alert('There was an issue signing you in.')
+            }
+          })
+          .then((accounts) => {
+            let providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider);            
+            this.props.initializeNetwork({ 'selectedNetwork': window.ethereum.networkVersion, providerObj, pubKey: accounts[0] });
+            this.displayBridge();        
+            if (window.ethereum.networkVersion === 1) {
+              alert('This application requires the main network, please switch it in your MetaMask UI.')
+            }
+          })    
         }
       })
     } catch (err) {
