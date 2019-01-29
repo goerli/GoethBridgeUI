@@ -1,8 +1,11 @@
 
-  body {overflow: hidden; }
+body {
+  overflow: hidden;
+}
 
 .App {
   text-align: center;
+  padding: '5%';
 }
   
 .App-header {
@@ -13,4 +16,3 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
-  

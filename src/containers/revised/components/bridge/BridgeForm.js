@@ -27,7 +27,7 @@ class BridgeForm extends React.Component {
     const { amount } = this.state; // add validation for number
     const { network, provider, pubKey } = this.props;
     if (network !== 'main') {
-      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);     
+      const { contract } = await executeDeposit(provider, amount, network, pubKey);     
       const goerliContract = await instantiateGoerliContract();
       this.depositEvent(contract, pubKey);
       this.withdrawlEvent(goerliContract, pubKey);

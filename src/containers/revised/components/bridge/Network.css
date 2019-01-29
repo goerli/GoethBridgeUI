@@ -41,7 +41,7 @@ font-style: normal;
   vertical-align: top;
   display: inline-block;
   width: 100%;
-  background-color: black;
+  background-color: #85d7e8;
   animation: loader-inner 2s infinite ease-in;
 }
 

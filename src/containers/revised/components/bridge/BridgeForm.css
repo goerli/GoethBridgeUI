@@ -11,7 +11,6 @@
   font-style: normal;
 }
   
-  
 .inputContainer {
   display: flex;
   height: 50px;
@@ -27,6 +26,15 @@
   font-size: 12px;
   font-family: 'NeueMontreal';
   border-color: black;
+  border-right: 0;
   font-family: 'Sporting Grotesque_Regular';
 }
-  
+
+input:hover {
+  border: 1px solid #fdcba9;
+  color: #fdcba9;
+}
+
+input:focus {
+  outline:none;
+}

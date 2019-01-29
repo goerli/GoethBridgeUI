@@ -5,24 +5,20 @@ class TxDisplay extends React.Component {
     const { network, depositEventData } = this.props;
     const tx = depositEventData.event.transactionHash;
     let url;
-    if (network === 'ropsten') {
+    if (network === '3') {
       url = `https://ropsten.etherscan.io/tx/${tx}`;
-    } else if (network === 'kovan') {
+    } else if (network === '42') {
       url = `https://kovan.etherscan.io/tx/${tx}`;
-    } else if (network === 'rinkeby') {
+    } else if (network === '4') {
      url = `https://rinkeby.etherscan.io/tx/${tx}`;
     }  
     return url;
   };
 
-  getWithdrawlLink = () => {
-    const { network } = this.props;
-  };
-
   render() {
     const { depositEventData, withdrawlEventData } = this.props;
-    const doubleCheck = depositEventData !== null || typeof depositEventData !== 'undefined' 
-    && withdrawlEventData !== null || typeof withdrawlEventData !== 'undefined';
+    const doubleCheck = (depositEventData !== null || typeof depositEventData !== 'undefined') 
+    && (withdrawlEventData !== null || typeof withdrawlEventData !== 'undefined');
     return (
       <div>
         {

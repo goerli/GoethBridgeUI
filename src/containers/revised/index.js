@@ -16,7 +16,6 @@ class BridgeContainer extends Component {
   componentDidMount = async () => {
     try {
       window.addEventListener('load', async () => {
-        const { web3 } = window;
         if (typeof window.ethereum === 'undefined') {
           alert('Looks like you need a Dapp browser to get started.')
         } else {        
@@ -55,9 +54,9 @@ class BridgeContainer extends Component {
           <header className="App-header">        
             <Header />
             <BridgeForm />           
-            <Network isLoading={loading} />                  
+            <Network isLoading={loading} />                
           </header>   
-        </div>
+        </div>                        
       </div>
     );
   }

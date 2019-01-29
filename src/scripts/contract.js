@@ -2,8 +2,8 @@ const ethers = require('ethers');
 
 const executeDeposit = async (provider, amount, network, pubKey) => { 
   const { contract, txCount } = await instantiateContract(provider, pubKey, network);
-  const txHash = await executeTransaction(contract, amount, txCount, pubKey, provider, network);
-  return { txHash, contract };
+  await executeTransaction(contract, amount, txCount, pubKey, provider, network);
+  return { contract };
 };
 
 const instantiateContract = async (provider, pubKey, network) => {
