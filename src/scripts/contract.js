@@ -1,23 +1,52 @@
 const ethers = require('ethers');
 
+/**
+ * executeDeposit will make a request to the api to return the contract addresses.
+ * You will instantiate the bridge contract & execute the deposit TX.
+ * @param {*} provider 
+ * @param {*} amount 
+ * @param {*} network 
+ * @param {*} pubKey 
+ */
 const executeDeposit = async (provider, amount, network, pubKey) => { 
-  const { contract, txCount } = await instantiateContract(provider, pubKey, network);
-  await executeTransaction(contract, amount, txCount, pubKey, provider, network);
-  return { contract };
+  const data = [
+    {
+      id: '4',
+      address: '0x00'
+    },
+    {
+      id: '5',
+      address: '0x00'
+    }
+  ];
+  const contractAddress = getContractAddressByNetwork(data, network);
+  if (contractAddress !== null) {
+    const { contract, txCount } = await instantiateContract(provider, pubKey, contractAddress, network);
+    const depositTx = await executeTransaction(contract, amount, txCount, pubKey, provider, network);
+    return { contract, depositTx };
+  }
 };
 
-const instantiateContract = async (provider, pubKey, network) => {
+/**
+ * Will return the contract address based on the current network ID.
+ * @param {*} data 
+ * @param {*} network 
+ */
+const getContractAddressByNetwork = (data, network) => {
+  if (data.length > 0) {
+    for (let i = 0; i < data.length; i += 1) {
+      if (data[i].id === network) {
+        return data[i].address;
+      }
+    }
+  }
+  return null;
+};
+
+const instantiateContract = async (provider, pubKey, contractAddress, network) => {
   const txCount = await provider.getTransactionCount(pubKey);
   const abi = [{"constant":false,"inputs":[{"name":"_recipient","type":"address"},{"name":"_toChain","type":"uint256"}],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_owner","type":"address"}],"name":"ContractCreation","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_recipient","type":"address"},{"indexed":false,"name":"_value","type":"uint256"},{"indexed":false,"name":"_toChain","type":"uint256"}],"name":"Deposit","type":"event"}];
   const signer = provider.getSigner();
-  let contractAddress;
-  if (network === '3') {
-    contractAddress= '0x17e59beDE7FeB4DfA0CDCb61601D3efBa7d074c8';
-  } else if (network === '42') {
-    contractAddress = '0x39Ba0E94e9105aD6340819429BEE2ddc09ff8201';
-  } else if (network === '4') {
-    contractAddress = '0xEB9703d83dDcdAb7d27bE80D528642B74ae4e369';
-  }
   let contract = new ethers.Contract(contractAddress, abi, signer);
   return { contract, txCount, signer };
 };

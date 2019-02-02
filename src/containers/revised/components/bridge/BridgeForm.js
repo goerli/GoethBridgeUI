@@ -27,10 +27,9 @@ class BridgeForm extends React.Component {
     const { amount } = this.state; // add validation for number
     const { network, provider, pubKey } = this.props;
     if (network !== 'main') {
-      const { contract } = await executeDeposit(provider, amount, network, pubKey);     
-      const goerliContract = await instantiateGoerliContract();
-      this.depositEvent(contract, pubKey);
-      this.withdrawlEvent(goerliContract, pubKey);
+      const { contract, depositTx } = await executeDeposit(provider, amount, network, pubKey);      
+      await this.depositEvent(contract, pubKey);  
+      this.withdrawlEvent(pubKey, depositTx);
     }
     this.setState({ component: 1 });
   };
@@ -46,30 +45,33 @@ class BridgeForm extends React.Component {
     });
   }
 
-  withdrawlEvent = (goerliContract, pubKey) => {
-    goerliContract.on("Withdraw", (_recipient, _value, _fromChain, event) => {
-      const gAddress = _recipient.toLowerCase();
-      const cAddress = pubKey.toLowerCase();
-      if (gAddress === cAddress) {
-        const { address, blockHash, blockNumber, data, transactionHash } = event;
-        const res = { address, blockHash, blockNumber, data, transactionHash, _recipient };
-        this.processEvents('withdrawl', res);
+  /**
+   * withdrawlEvent will query the api for the withdrawl event until a re
+   */
+  withdrawlEvent = async (pubKey, txHash) => {
+    const eventInterval = setInterval(async () => {        
+      const request = await fetch(`http://localhost:3000?hee`);
+      if (request !== null && request.status === '200') {       
+        this.processEvents('withdrawl', request.data);   
+        clearInterval(eventInterval); // stop 
+      } else {
+        console.log('invalid');  
       }
-    });
+    }, 1500)
   }
 
+  /**
+   * processEvents will save event data in redux to display in the final TxDisplay component.
+   */
   processEvents = async (type, data) => {
     const { deposit, withdrawl } = this.state;
     if (type === 'deposit') {
       await this.props.setDepositEventData(data)
-      this.setState({ deposit: true }, () => {
-        console.log('depo', { data });
-        
+      this.setState({ deposit: true }, () => {        
         if (withdrawl === true) this.setState({ component: 2 });
       });
     } else {
       await this.props.setWithdrawlEventData(data);
-      console.log('with', { data });
       this.setState({ withdrawl: true }, () => {
         if (deposit === true) this.setState({ component: 2 });
       });
