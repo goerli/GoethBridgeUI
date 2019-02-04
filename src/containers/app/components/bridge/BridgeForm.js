@@ -6,8 +6,8 @@ import {
   setDepositEventData,
   setWithdrawlEventData,
 } from '../../../store/actionCreator';
-import executeDeposit from '../../../../scripts/contract';
-import instantiateGoerliContract from '../../../../scripts/goerliContract';
+import executeDeposit from '../../../../scripts/deposit';
+import instantiateGoerliContract from '../../../../scripts/withdraw';
 import EventDisplay from './EventDisplay';
 import TxDisplay from './TxDisplay';
 
@@ -24,12 +24,13 @@ class BridgeForm extends React.Component {
   };
 
   executeExchange = async () => {
-    const { amount } = this.state; // add validation for number
+    const { amount } = this.state;
     const { network, provider, pubKey } = this.props;
     if (network !== 'main') {
-      const { contract, depositTx } = await executeDeposit(provider, amount, network, pubKey);      
-      await this.depositEvent(contract, pubKey);  
-      this.withdrawlEvent(pubKey, depositTx);
+      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);     
+      const goerliContract = await instantiateGoerliContract();
+      this.depositEvent(contract, pubKey);
+      this.withdrawlEvent(goerliContract, pubKey);
     }
     this.setState({ component: 1 });
   };
@@ -48,16 +49,16 @@ class BridgeForm extends React.Component {
   /**
    * withdrawlEvent will query the api for the withdrawl event until a re
    */
-  withdrawlEvent = async (pubKey, txHash) => {
-    const eventInterval = setInterval(async () => {        
-      const request = await fetch(`http://localhost:3000?hee`);
-      if (request !== null && request.status === '200') {       
-        this.processEvents('withdrawl', request.data);   
-        clearInterval(eventInterval); // stop 
-      } else {
-        console.log('invalid');  
+  withdrawlEvent = async (goerliContract, pubKey) => {
+    goerliContract.on("Withdraw", (_recipient, _value, _fromChain, event) => {
+      const gAddress = _recipient.toLowerCase();
+      const cAddress = pubKey.toLowerCase();
+      if (gAddress === cAddress) {
+        const { address, blockHash, blockNumber, data, transactionHash } = event;
+        const res = { address, blockHash, blockNumber, data, transactionHash, _recipient };
+        this.processEvents('withdrawl', res);
       }
-    }, 1500)
+    });
   }
 
   /**
