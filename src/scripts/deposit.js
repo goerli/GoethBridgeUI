@@ -2,6 +2,8 @@ import * as config from '../assets/config/constants';
 
 const ethers = require('ethers');
 
+const RE_NON_DIGIT = /[^0-9]/gu;
+
 /**
  * executeDeposit will instantiate the deposit contract & generate the deposit tx.
  * @param {*} provider 
@@ -68,14 +70,20 @@ const getDepositContractAddress = (network) => {
  */
 const generateDepositTx = async (contract, amount, txCount, pubKey, provider, network) => {
   const wei = ethers.utils.parseEther(amount);
+  const gasP = removeNonDigits('9_000_000_000') 
   const overrideOptions = {
     gasLimit: 250000,
-    gasPrice: 9000000000,
+    gasPrice: gasP,
     nonce: txCount,
     value: wei,
   };
   let tx = await contract.functions.deposit(pubKey, config.GOERLI_CHAIN_ID, overrideOptions);
   return tx.hash;
 };
+
+function removeNonDigits(str) {
+  str = str.replace(RE_NON_DIGIT, '');
+  return Number(str);
+}
 
 export default executeDeposit;
