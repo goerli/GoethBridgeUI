@@ -20,23 +20,23 @@ class BridgeContainer extends Component {
           alert('Looks like you need a Dapp browser to get started.')
         } else {        
           await window.ethereum.enable()
-          .catch((reason) => {
-            if (reason === 'User rejected provider access') {
+            .catch((reason) => {
+              if (reason === 'User rejected provider access') {
               // The user didn't want to sign in!
-            } else {        
-              alert('There was an issue signing you in.')
-            }
-          })
-          .then((accounts) => {
-            let providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider);            
-            this.props.initializeNetwork({ 'selectedNetwork': window.ethereum.networkVersion, providerObj, pubKey: accounts[0] });
-            this.displayBridge();        
-            if (window.ethereum.networkVersion === '1') {
-              alert('This application requires the main network, please switch it in your MetaMask UI.')
-            } else if (window.ethereum.networkVersion !== '3' && window.ethereum.networkVersion !== '4' && window.ethereum.networkVersion !== '42') {
-              alert('Please select either Ropsten, Kovan, or Rinkeby.')
-            }
-          })    
+              } else {        
+                alert('There was an issue signing you in.')
+              }
+            })
+            .then((accounts) => {
+              let providerObj = new ethers.providers.Web3Provider(window.web3.currentProvider);            
+              this.props.initializeNetwork({ 'selectedNetwork': window.ethereum.networkVersion, providerObj, pubKey: accounts[0] });
+              this.displayBridge();        
+              if (window.ethereum.networkVersion === '1') {
+                alert('This application requires the main network, please switch it in your MetaMask UI.')
+              } else if (window.ethereum.networkVersion !== '3' && window.ethereum.networkVersion !== '4' && window.ethereum.networkVersion !== '42') {
+                alert('Please select either Ropsten, Kovan, or Rinkeby.')
+              }
+            })    
         }
       })
     } catch (err) {
@@ -45,7 +45,7 @@ class BridgeContainer extends Component {
   }
 
   displayBridge = () => {
-    this.setState({ loading : false });
+    this.setState({ loading: false });
   }
 
   render() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 class TxDisplay extends React.Component {
   getDepositLink = () => {
     const { network, depositEventData } = this.props;
@@ -10,7 +11,7 @@ class TxDisplay extends React.Component {
     } else if (network === '42') {
       url = `https://kovan.etherscan.io/tx/${tx}`;
     } else if (network === '4') {
-     url = `https://rinkeby.etherscan.io/tx/${tx}`;
+      url = `https://rinkeby.etherscan.io/tx/${tx}`;
     }  
     return url;
   };
@@ -22,16 +23,16 @@ class TxDisplay extends React.Component {
     return (
       <div>
         {
-           doubleCheck 
-           ?
-           <div>
-               <h3> <b> Deposit TX </b> </h3>
-               <p> <a href={this.getDepositLink()} target="_blank" rel="noopener noreferrer" style={link}> TX: { depositEventData.event.transactionHash}  </a>  </p> 
-               <br />
-               <h3> <b> Withdrawl TX </b> </h3>
-               <p> <a href={`https://blockscout.com/eth/goerli/tx/${withdrawlEventData.transactionHash}`} target="_blank" rel="noopener noreferrer" style={link}> { withdrawlEventData.transactionHash} </a> </p>
+          doubleCheck 
+            ?
+            <div>
+              <h3> <b> Deposit TX </b> </h3>
+              <p> <a href={this.getDepositLink()} target="_blank" rel="noopener noreferrer" style={link}> TX: { depositEventData.event.transactionHash}  </a>  </p> 
+              <br />
+              <h3> <b> Withdrawl TX </b> </h3>
+              <p> <a href={`https://blockscout.com/eth/goerli/tx/${withdrawlEventData.transactionHash}`} target="_blank" rel="noopener noreferrer" style={link}> { withdrawlEventData.transactionHash} </a> </p>
             </div>
-        : null
+            : null
         }
       </div>
     )
@@ -39,8 +40,8 @@ class TxDisplay extends React.Component {
 }
 
 const link = {
-    color: '#8ad9d1',
-    textDecoration: 'none',
+  color: '#8ad9d1',
+  textDecoration: 'none',
 };
 
 const mapStateToProps = (state) => {    

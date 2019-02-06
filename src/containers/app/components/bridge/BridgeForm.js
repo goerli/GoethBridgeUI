@@ -21,7 +21,7 @@ class BridgeForm extends React.Component {
   };
 
   handleChange = (e) => {
-    this.setState({ amount: e.target.value})
+    this.setState({ amount: e.target.value })
   };
 
   executeExchange = async () => {
@@ -34,12 +34,12 @@ class BridgeForm extends React.Component {
       this.withdrawlEvent(goerliContract, pubKey);
       this.setState({ component: 1, error: null });      
     } else {    
-      this.setState({ error : 'Invalid Network Selection Detected' })
+      this.setState({ error: 'Invalid Network Selection Detected' })
     }
   };
 
   depositEvent = (contract, pubKey) => {
-    contract.on("Deposit", (_recipient, _value, _toChain, event) => {                  
+    contract.on('Deposit', (_recipient, _value, _toChain, event) => {                  
       const eAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (eAddress === cAddress) {        
@@ -53,7 +53,7 @@ class BridgeForm extends React.Component {
    * withdrawlEvent will query the api for the withdrawl event until a re
    */
   withdrawlEvent = async (goerliContract, pubKey) => {
-    goerliContract.on("Withdraw", (_recipient, _value, _fromChain, event) => {
+    goerliContract.on('Withdraw', (_recipient, _value, _fromChain, event) => {
       const gAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (gAddress === cAddress) {    
@@ -79,13 +79,12 @@ class BridgeForm extends React.Component {
       this.setState({ withdrawl: true }, () => {
         if (deposit === true) this.setState({ component: 2 });
       });
-     
     }
   }
 
-  render () {
+  render() {
     const { network } = this.props;    
-    const validNetwork = network === "3" || network === "4" || network === "42";
+    const validNetwork = network === '3' || network === '4' || network === '42';
     const { amount, component, error } = this.state;
     return (
       <div >
@@ -94,7 +93,7 @@ class BridgeForm extends React.Component {
         }
         {
           component === 0
-          ? <div className="inputContainer">
+            ? <div className="inputContainer">
               <input 
                 className="txtAmount" 
                 placeholder="enter testnet ether amount for goeth exchange" 
@@ -102,26 +101,27 @@ class BridgeForm extends React.Component {
                 onChange={this.handleChange}
                 value={amount}
                 />
-              <button 
+              <button
                 style={ !validNetwork ? btnDisabled : btnEnabled } 
                 className="btnExchange"
                 disabled={!validNetwork}
                 onClick={this.executeExchange}
+                type="button"
                 > 
                   exchange 
               </button> 
             </div>
-          : null
+            : null
         }
         {
           component === 1 
-          ? <EventDisplay />
-          : null
+            ? <EventDisplay />
+            : null
         }
         {
           component === 2
-          ? <TxDisplay />
-          : null
+            ? <TxDisplay />
+            : null
         }
       </div>
     )
@@ -141,7 +141,6 @@ const btnEnabled = {
   overflow: 'hidden',
 }
 
-
 const btnDisabled = {
   backgroundColor: '#fca19b',
   width: '22vw',
@@ -157,7 +156,7 @@ const btnDisabled = {
 
 const mapStateToProps = ({ network }) => {
   const { selectedNetwork, providerObj, pubKey, depositEventData, withdrawlEventData } = network;
-  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData};
+  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData };
 };
 
 export default connect(mapStateToProps, {
