@@ -31,8 +31,7 @@
 }
 
 input:hover {
-  border: 1px solid #fdcba9;
-  color: #fdcba9;
+  color: #82d5ec;
 }
 
 input:focus {
