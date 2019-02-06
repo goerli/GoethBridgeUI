@@ -6,11 +6,17 @@ React web application to facilitate the exchange of testnet Ether to Göeth thro
 
 ## Setup
 
+
 #### dependencies
 node `v8.10.0` or later 
 
 #### instructions to run:
 clone this repo
+
+
+- Create .env file
+  + add ```SKIP_PREFLIGHT_CHECK=true```
+  + https://stackoverflow.com/questions/52586594/eslint-error-on-deployment-on-local-server-of-react-web-app
 
 `npm i && npm start`
 
