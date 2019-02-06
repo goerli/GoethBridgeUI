@@ -11,8 +11,12 @@ const ethers = require('ethers');
  */
 const executeDeposit = async (provider, amount, network, pubKey) => { 
   const { contract, txCount } = await instantiateDepositContract(provider, pubKey, network);
-  const txHash = await generateDepositTx(contract, amount, txCount, pubKey, provider, network);
-  return { txHash, contract };
+  if (contract !== null) {
+    const txHash = await generateDepositTx(contract, amount, txCount, pubKey, provider, network);
+    return { txHash, contract };
+  } else {
+    return { txHash: null, contract: null };
+  }
 };
 
 /**
@@ -28,6 +32,8 @@ const instantiateDepositContract = async (provider, pubKey, network) => {
   if (contractAddress !== null) {
     let contract = new ethers.Contract(contractAddress, config.DEPOSIT_CONTRACT_ABI, signer);
     return { contract, txCount, signer };
+  } else {
+    return { contract: null, txCount: null, signer: null };
   }
 };
 

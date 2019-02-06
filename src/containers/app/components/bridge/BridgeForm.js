@@ -28,11 +28,15 @@ class BridgeForm extends React.Component {
     const { amount } = this.state;
     const { network, provider, pubKey } = this.props;    
     if (network === '3'|| network === '42' || network === '4') {
-      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);     
-      const goerliContract = await instantiateGoerliContract();
-      this.depositEvent(contract, pubKey);
-      this.withdrawlEvent(goerliContract, pubKey);
-      this.setState({ component: 1, error: null });      
+      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);
+      if (txHash !== null) {
+        const goerliContract = await instantiateGoerliContract();
+        this.depositEvent(contract, pubKey);
+        this.withdrawlEvent(goerliContract, pubKey);
+        this.setState({ component: 1, error: null }); 
+      } else {
+        this.setState({ error: 'Could not instantiate contract' }); 
+      }           
     } else {    
       this.setState({ error: 'Invalid Network Selection Detected' })
     }

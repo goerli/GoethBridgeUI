@@ -30,6 +30,7 @@
   ],
   "proxy": "https://node.goerli.com",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.2.0",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
