@@ -1,15 +1,14 @@
 @font-face {
 font-family: 'Sporting Grotesque_Regular';
-src:    url('../../../../fonts/Sporting_Grotesque-Regular_web.eot');
-src:    url('../../../../fonts/Sporting_Grotesque-Regular_web.eot?#iefix') format('embedded-opentype'),
-        url('../../../../fonts/Sporting_Grotesque-Regular_web.woff') format('woff'),
-        url('../../../../fonts/Sporting_Grotesque-Regular_web.woff2') format('woff2'),
-        url('../../../../fonts/Sporting_Grotesque-Regular_web.ttf') format('truetype'),
-        url('../../../../fonts/Sporting_Grotesque-Regular_web.svg#svgFontName') format('svg');
+src:    url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.eot');
+src:    url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.eot?#iefix') format('embedded-opentype'),
+        url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.woff') format('woff'),
+        url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.woff2') format('woff2'),
+        url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.ttf') format('truetype'),
+        url('../../../../assets/fonts/Sporting_Grotesque-Regular_web.svg#svgFontName') format('svg');
 font-weight: normal;
 font-style: normal;
 }
-
 
 .netowrkStyles {
   font-family: 'Sporting Grotesque_Regular';
@@ -41,7 +40,7 @@ font-style: normal;
   vertical-align: top;
   display: inline-block;
   width: 100%;
-  background-color: black;
+  background-color: #85d7e8;
   animation: loader-inner 2s infinite ease-in;
 }
 

@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'NeueMontreal-Regular';
+  src:    url('../../../../assets/fonts/NeueMontreal-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.onboardingContainerStyle {
+  padding-bottom: 2.5%;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.headerTextStyle {
+  font-size: 0.7em;
+  line-height: 30px;
+  font-family: NeueMontreal-Regular;
+}

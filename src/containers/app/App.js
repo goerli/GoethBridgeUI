@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BridgeContainer from '../revised/index';
+import BridgeContainer from './index';
 
 class App extends Component {
   render() {

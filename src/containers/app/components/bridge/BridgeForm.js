@@ -6,8 +6,8 @@ import {
   setDepositEventData,
   setWithdrawlEventData,
 } from '../../../store/actionCreator';
-import executeDeposit from '../../../../scripts/contract';
-import instantiateGoerliContract from '../../../../scripts/goerliContract';
+import executeDeposit from '../../../../scripts/deposit';
+import instantiateGoerliContract from '../../../../scripts/withdraw';
 import EventDisplay from './EventDisplay';
 import TxDisplay from './TxDisplay';
 
@@ -17,40 +17,50 @@ class BridgeForm extends React.Component {
     component: 0,
     deposit: false,
     withdrawl: false,
+    error: null,
   };
 
   handleChange = (e) => {
-    this.setState({ amount: e.target.value})
+    this.setState({ amount: e.target.value })
   };
 
   executeExchange = async () => {
-    const { amount } = this.state; // add validation for number
-    const { network, provider, pubKey } = this.props;
-    if (network !== 'main') {
-      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);     
-      const goerliContract = await instantiateGoerliContract();
-      this.depositEvent(contract, pubKey);
-      this.withdrawlEvent(goerliContract, pubKey);
+    const { amount } = this.state;
+    const { network, provider, pubKey } = this.props;    
+    if (network === '3'|| network === '42' || network === '4') {
+      const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);
+      if (txHash !== null) {
+        const goerliContract = await instantiateGoerliContract();
+        this.depositEvent(contract, pubKey);
+        this.withdrawlEvent(goerliContract, pubKey);
+        this.setState({ component: 1, error: null }); 
+      } else {
+        this.setState({ error: 'Could not instantiate contract' }); 
+      }           
+    } else {    
+      this.setState({ error: 'Invalid Network Selection Detected' })
     }
-    this.setState({ component: 1 });
   };
 
   depositEvent = (contract, pubKey) => {
-    contract.on("Deposit", (_recipient, _value, _toChain, event) => {      
+    contract.on('Deposit', (_recipient, _value, _toChain, event) => {                  
       const eAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
-      if (eAddress === cAddress) {
+      if (eAddress === cAddress) {        
         const data = { _recipient, _value, _toChain, event };
         this.processEvents('deposit', data);
       }
     });
   }
 
-  withdrawlEvent = (goerliContract, pubKey) => {
-    goerliContract.on("Withdraw", (_recipient, _value, _fromChain, event) => {
+  /**
+   * withdrawlEvent will query the api for the withdrawl event until a re
+   */
+  withdrawlEvent = async (goerliContract, pubKey) => {
+    goerliContract.on('Withdraw', (_recipient, _value, _fromChain, event) => {
       const gAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
-      if (gAddress === cAddress) {
+      if (gAddress === cAddress) {    
         const { address, blockHash, blockNumber, data, transactionHash } = event;
         const res = { address, blockHash, blockNumber, data, transactionHash, _recipient };
         this.processEvents('withdrawl', res);
@@ -58,61 +68,64 @@ class BridgeForm extends React.Component {
     });
   }
 
+  /**
+   * processEvents will save event data in redux to display in the final TxDisplay component.
+   */
   processEvents = async (type, data) => {
     const { deposit, withdrawl } = this.state;
     if (type === 'deposit') {
       await this.props.setDepositEventData(data)
-      this.setState({ deposit: true }, () => {
-        console.log('depo', { data });
-        
+      this.setState({ deposit: true }, () => {        
         if (withdrawl === true) this.setState({ component: 2 });
       });
     } else {
       await this.props.setWithdrawlEventData(data);
-      console.log('with', { data });
       this.setState({ withdrawl: true }, () => {
         if (deposit === true) this.setState({ component: 2 });
       });
-     
     }
   }
 
-  render () {
-    const { network } = this.props;
-    const isMainnet = network === "1";    
-    const { amount, component } = this.state;
+  render() {
+    const { network } = this.props;    
+    const validNetwork = network === '3' || network === '4' || network === '42';
+    const { amount, component, error } = this.state;
     return (
       <div >
         {
+          error === null ? null : <p> Error: { error } </p>
+        }
+        {
           component === 0
-          ? <div className="inputContainer">
+            ? <div className="inputContainer">
               <input 
                 className="txtAmount" 
                 placeholder="enter testnet ether amount for goeth exchange" 
-                disabled={isMainnet}
+                disabled={!validNetwork}
                 onChange={this.handleChange}
                 value={amount}
                 />
-              <button 
-                style={ isMainnet ? btnDisabled : btnEnabled } 
+              <button
+                style={ !validNetwork ? btnDisabled : btnEnabled } 
                 className="btnExchange"
-                disabled={isMainnet}
+                disabled={!validNetwork}
                 onClick={this.executeExchange}
+                type="button"
                 > 
                   exchange 
               </button> 
             </div>
-          : null
+            : null
         }
         {
           component === 1 
-          ? <EventDisplay />
-          : null
+            ? <EventDisplay />
+            : null
         }
         {
           component === 2
-          ? <TxDisplay />
-          : null
+            ? <TxDisplay />
+            : null
         }
       </div>
     )
@@ -132,7 +145,6 @@ const btnEnabled = {
   overflow: 'hidden',
 }
 
-
 const btnDisabled = {
   backgroundColor: '#fca19b',
   width: '22vw',
@@ -148,7 +160,7 @@ const btnDisabled = {
 
 const mapStateToProps = ({ network }) => {
   const { selectedNetwork, providerObj, pubKey, depositEventData, withdrawlEventData } = network;
-  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData};
+  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData };
 };
 
 export default connect(mapStateToProps, {

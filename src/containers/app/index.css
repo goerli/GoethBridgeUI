@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'NeueMontreal-Regular';
+  src:    url('../../assets/fonts/NeueMontreal-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  overflow: hidden;
+}
+
+.App {
+  text-align: center;
+  padding: '5%';
+}
+  
+.App-header {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.btnMetaMask {
+  font-family: 'Sporting Grotesque_Regular';
+}

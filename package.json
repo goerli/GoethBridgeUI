@@ -3,25 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.10.7",
-    "delay": "^4.1.0",
     "ethers": "^4.0.12",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-iframe": "^1.3.3",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "react-spring": "^7.2.10",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "web3": "^1.0.0-beta.36"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +28,13 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "https://node.goerli.com"
+  "proxy": "https://node.goerli.com",
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4"
+  }
 }
