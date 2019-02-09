@@ -6,7 +6,7 @@ const initialState = {
   pubkKey: '',
   componentIndex: 1,
   depositEventData: null,
-  withdrawlEventData: null,
+  withdrawalEventData: null,
 };
 
 export default function (state = initialState, action) {
@@ -31,10 +31,10 @@ export default function (state = initialState, action) {
         depositEventData: action.payload,
       };
     } 
-    case actionTypes.SET_WITHDRAWL_EVENT_TX_DATA: {
+    case actionTypes.SET_WITHDRAWAL_EVENT_TX_DATA: {
       return {
         ...state, 
-        withdrawlEventData: action.payload,
+        withdrawalEventData: action.payload,
       };
     } 
     default: return state;

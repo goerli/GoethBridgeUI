@@ -17,9 +17,9 @@ class TxDisplay extends React.Component {
   };
 
   render() {
-    const { depositEventData, withdrawlEventData } = this.props;
+    const { depositEventData, withdrawalEventData } = this.props;
     const doubleCheck = (depositEventData !== null || typeof depositEventData !== 'undefined') 
-    && (withdrawlEventData !== null || typeof withdrawlEventData !== 'undefined');
+    && (withdrawalEventData !== null || typeof withdrawalEventData !== 'undefined');
     return (
       <div>
         {
@@ -29,8 +29,8 @@ class TxDisplay extends React.Component {
               <h3> <b> Deposit TX </b> </h3>
               <p> <a href={this.getDepositLink()} target="_blank" rel="noopener noreferrer" style={link}> TX: { depositEventData.event.transactionHash}  </a>  </p> 
               <br />
-              <h3> <b> Withdrawl TX </b> </h3>
-              <p> <a href={`https://blockscout.com/eth/goerli/tx/${withdrawlEventData.transactionHash}`} target="_blank" rel="noopener noreferrer" style={link}> { withdrawlEventData.transactionHash} </a> </p>
+              <h3> <b> Withdrawal TX </b> </h3>
+              <p> <a href={`https://blockscout.com/eth/goerli/tx/${withdrawalEventData.transactionHash}`} target="_blank" rel="noopener noreferrer" style={link}> { withdrawalEventData.transactionHash} </a> </p>
             </div>
             : null
         }
@@ -45,8 +45,8 @@ const link = {
 };
 
 const mapStateToProps = (state) => {    
-  const { depositEventData, withdrawlEventData } = state;
-  return { depositEventData, withdrawlEventData, network: state.network.selectedNetwork };
+  const { depositEventData, withdrawalEventData } = state;
+  return { depositEventData, withdrawalEventData, network: state.network.selectedNetwork };
 };
 
 export default connect(mapStateToProps, null)(TxDisplay);

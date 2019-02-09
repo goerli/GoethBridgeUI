@@ -31,10 +31,10 @@ export const setDepositEventData = (data) => {
   };
 };
 
-export const setWithdrawlEventData = (data) => {
+export const setWithdrawalEventData = (data) => {
   return (dispatch) => {
     dispatch({
-      type: actionTypes.SET_WITHDRAWL_EVENT_TX_DATA,
+      type: actionTypes.SET_WITHDRAWAL_EVENT_TX_DATA,
       payload: data,
     });
   };

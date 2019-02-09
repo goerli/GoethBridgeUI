@@ -4,7 +4,7 @@ import './BridgeForm.css'
 import {
   setAppComponentState,
   setDepositEventData,
-  setWithdrawlEventData,
+  setWithdrawalEventData,
 } from '../../../store/actionCreator';
 import executeDeposit from '../../../../scripts/deposit';
 import instantiateGoerliContract from '../../../../scripts/withdraw';
@@ -16,7 +16,7 @@ class BridgeForm extends React.Component {
     amount: '',
     component: 0,
     deposit: false,
-    withdrawl: false,
+    withdrawal: false,
     error: null,
   };
 
@@ -32,7 +32,7 @@ class BridgeForm extends React.Component {
       if (txHash !== null) {
         const goerliContract = await instantiateGoerliContract();
         this.depositEvent(contract, pubKey);
-        this.withdrawlEvent(goerliContract, pubKey);
+        this.withdrawalEvent(goerliContract, pubKey);
         this.setState({ component: 1, error: null }); 
       } else {
         this.setState({ error: 'Could not instantiate contract' }); 
@@ -54,16 +54,16 @@ class BridgeForm extends React.Component {
   }
 
   /**
-   * withdrawlEvent will query the api for the withdrawl event until a re
+   * withdrawalEvent will query the api for the withdrawal event until a re
    */
-  withdrawlEvent = async (goerliContract, pubKey) => {
+  withdrawalEvent = async (goerliContract, pubKey) => {
     goerliContract.on('Withdraw', (_recipient, _value, _fromChain, event) => {
       const gAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (gAddress === cAddress) {    
         const { address, blockHash, blockNumber, data, transactionHash } = event;
         const res = { address, blockHash, blockNumber, data, transactionHash, _recipient };
-        this.processEvents('withdrawl', res);
+        this.processEvents('withdrawal', res);
       }
     });
   }
@@ -72,15 +72,15 @@ class BridgeForm extends React.Component {
    * processEvents will save event data in redux to display in the final TxDisplay component.
    */
   processEvents = async (type, data) => {
-    const { deposit, withdrawl } = this.state;
+    const { deposit, withdrawal } = this.state;
     if (type === 'deposit') {
       await this.props.setDepositEventData(data)
       this.setState({ deposit: true }, () => {        
-        if (withdrawl === true) this.setState({ component: 2 });
+        if (withdrawal === true) this.setState({ component: 2 });
       });
     } else {
-      await this.props.setWithdrawlEventData(data);
-      this.setState({ withdrawl: true }, () => {
+      await this.props.setWithdrawalEventData(data);
+      this.setState({ withdrawal: true }, () => {
         if (deposit === true) this.setState({ component: 2 });
       });
     }
@@ -159,12 +159,12 @@ const btnDisabled = {
 }
 
 const mapStateToProps = ({ network }) => {
-  const { selectedNetwork, providerObj, pubKey, depositEventData, withdrawlEventData } = network;
-  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawlEventData };
+  const { selectedNetwork, providerObj, pubKey, depositEventData, withdrawalEventData } = network;
+  return { network: selectedNetwork, provider: providerObj, pubKey, depositEventData, withdrawalEventData };
 };
 
 export default connect(mapStateToProps, {
   setAppComponentState,
   setDepositEventData,
-  setWithdrawlEventData,
+  setWithdrawalEventData,
 })(BridgeForm);
