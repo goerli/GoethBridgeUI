@@ -20,11 +20,11 @@ class BridgeContainer extends Component {
   }
 
   enableMetaMask = async () => {
-    try {
-      this.setState({ metaMaskConsent: true });
+    try {      
       if (typeof window.ethereum === 'undefined') {
         alert('Looks like you need a Dapp browser to get started.')
-      } else {        
+      } else {
+        this.setState({ metaMaskConsent: true });                      
         await window.ethereum.enable()
           .catch((reason) => {
             if (reason === 'User rejected provider access') {
