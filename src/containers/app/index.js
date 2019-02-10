@@ -39,7 +39,7 @@ class BridgeContainer extends Component {
             this.displayBridge();        
             if (window.ethereum.networkVersion === '1') {
               alert('This application requires the main network, please switch it in your MetaMask UI.')
-            } else if (window.ethereum.networkVersion !== '3' && window.ethereum.networkVersion !== '4' && window.ethereum.networkVersion !== '42') {
+            } else if (window.ethereum.networkVersion !== '3' && window.ethereum.networkVersion !== '4' && window.ethereum.networkVersion !== '42' && window.ethereum.networkVersion !== '1337') {
               alert('Please select either Ropsten, Kovan, or Rinkeby.')
             }
           })    

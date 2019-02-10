@@ -27,7 +27,7 @@ class BridgeForm extends React.Component {
   executeExchange = async () => {
     const { amount } = this.state;
     const { network, provider, pubKey } = this.props;    
-    if (network === '3'|| network === '42' || network === '4') {
+    if (network === '3'|| network === '42' || network === '4' || network === '1337') {
       const { txHash, contract } = await executeDeposit(provider, amount, network, pubKey);
       if (txHash !== null) {
         const goerliContract = await instantiateGoerliContract();
@@ -43,7 +43,8 @@ class BridgeForm extends React.Component {
   };
 
   depositEvent = (contract, pubKey) => {
-    contract.on('Deposit', (_recipient, _value, _toChain, event) => {                  
+    contract.on('Deposit', (_recipient, _value, _toChain, event) => {
+      console.log(`Deposit Event :: Recipient: ${_recipient}, Value: ${_value}, ToChain: ${_toChain}`)
       const eAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (eAddress === cAddress) {        
@@ -56,8 +57,9 @@ class BridgeForm extends React.Component {
   /**
    * withdrawalEvent will query the api for the withdrawal event until a re
    */
-  withdrawalEvent = async (goerliContract, pubKey) => {
-    goerliContract.on('Withdraw', (_recipient, _value, _fromChain, event) => {
+  withdrawalEvent = (goerliContract, pubKey) => {
+    goerliContract.on('Withdraw', (_recipient, _value, _fromChain, _txHash, event) => {
+      console.log(`Withdraw Event :: Recipient: ${_recipient}, Value: ${_value}, FromChain: ${_fromChain}, TxHash: ${_txHash}`)
       const gAddress = _recipient.toLowerCase();
       const cAddress = pubKey.toLowerCase();
       if (gAddress === cAddress) {    
@@ -88,7 +90,7 @@ class BridgeForm extends React.Component {
 
   render() {
     const { network } = this.props;    
-    const validNetwork = network === '3' || network === '4' || network === '42';
+    const validNetwork = network === '3' || network === '4' || network === '42' || network === '1337';
     const { amount, component, error } = this.state;
     return (
       <div >

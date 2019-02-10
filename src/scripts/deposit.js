@@ -51,7 +51,9 @@ const getDepositContractAddress = (network) => {
     contractAddress = config.DEPOSIT_CONTRACT_ADDRESS_KOVAN;
   } else if (network === '4') {
     contractAddress = config.DEPOSIT_CONTRACT_ADDRESS_RINKEBY;
-  } else {
+  } else if (network === '1337') {
+    contractAddress = config.DEPOSIT_CONTRACT_ADDRESS_TESTNET;
+  }else{
     return null; //handle this error
   }
   return contractAddress;
@@ -72,9 +74,9 @@ const generateDepositTx = async (contract, amount, txCount, pubKey, provider, ne
   const wei = ethers.utils.parseEther(amount);
   const gasP = removeNonDigits('9_000_000_000') 
   const overrideOptions = {
-    gasLimit: 250000,
-    gasPrice: gasP,
-    nonce: txCount,
+    // gasLimit: 250000,
+    // gasPrice: gasP,
+    // nonce: txCount,
     value: wei,
   };
   let tx = await contract.functions.deposit(pubKey, config.GOERLI_CHAIN_ID, overrideOptions);
