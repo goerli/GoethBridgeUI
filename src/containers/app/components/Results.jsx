@@ -55,31 +55,32 @@ class Results extends React.Component {
     return (
       <div>
         <div>
-          <div className="inputContainer">
+          <div
+            className="inputContainer"
+            onClick={() => window.open(this.getDepositLink(), '_blank', 'resizable=yes')} >
             <button
               style={ style.btnEnabled } 
               className="btnExchange"
-              onClick={() => window.open(this.getDepositLink(), '_blank', 'resizable=yes')}
-              type="button"
-            > 
+              type="button"> 
               Deposit Tx 
-            </button>
+            </button>                      
             <input 
               className="txDisplay"                
               disabled               
               value={this.props.depositHash}
-            />   
+            />
           </div>
           <br />
-          <div className="inputContainer">
+          <div 
+            className="inputContainer"
+            onClick={() => window.open(`https://blockscout.com/eth/goerli/tx/${this.props.withdrawalHash}`, '_blank', 'resizable=yes')}>
             <button
               style={ style.btnEnabled } 
               className="btnExchange"
-              onClick={() => window.open(`https://blockscout.com/eth/goerli/tx/${this.props.withdrawalHash}`, '_blank', 'resizable=yes')}
               type="button"
               > 
                 Withdrawal TX
-            </button>            
+            </button>
             <input 
               className="txDisplay"                 
               disabled               

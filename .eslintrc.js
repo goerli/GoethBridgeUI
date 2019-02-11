@@ -70,6 +70,8 @@ module.exports = {
         "no-trailing-spaces": 0,
         "no-loop-func": 0,
         "no-eval": 0,
-        "import/no-undefined": 0
+        "import/no-undefined": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/click-events-have-key-events": 0
     }
 };
