@@ -31,7 +31,9 @@ class TxForm extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({ amount: e.target.value })
+    if (!isNaN(e.target.value)) {
+      this.setState({ amount: e.target.value })
+    }
   }
 
   executeExchange = async () => {
