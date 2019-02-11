@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './Network.css'
+// import './Network.css'
+import '../App.css'
 
 class Network extends React.Component {
   render() {
-    const { isLoading, network } = this.props;  
+    const { isLoading, networkID } = this.props;  
     return (
       <div className="networkContainer">
         {
@@ -14,9 +15,9 @@ class Network extends React.Component {
               Network detected:  
               <code className="networkName"> 
                 { 
-                  network === ''
+                  networkID === ''
                     ? 'Pending'
-                    : network 
+                    : networkID 
                 } 
               </code>
             </p>
@@ -26,9 +27,10 @@ class Network extends React.Component {
   }
 }
 
-const mapStateToProps = ({ network }) => {
-  const { selectedNetwork } = network;
-  return { network: selectedNetwork };
+const mapStateToProps = (state) => {
+  return ({
+    networkID: state.networkID,
+  })
 };
 
 export default connect(mapStateToProps, null)(Network);
