@@ -28,13 +28,6 @@ class Onboarding extends React.Component {
         alert('Looks like you need a Dapp browser to get started.')
       } else {
         await window.ethereum.enable()
-          .catch((reason) => {
-            if (reason === 'User rejected provider access') {
-              // The user didn't want to sign in!
-            } else {
-              //alert('There was an issue signing you in.')
-            }
-          })
           .then((accounts) => {
             if (window.ethereum.networkVersion === '1') {
               alert('Do you really want to swap mainnet eth for testnet?')
@@ -43,6 +36,9 @@ class Onboarding extends React.Component {
             } else {
               this.props.enableMetaMask()
             }
+          })
+          .catch((reason) => {
+            console.log(`Could not enable metamask: ${reason}`)
           })
       }
     } catch (err) {
