@@ -35,9 +35,13 @@ class TxForm extends React.Component {
   }
 
   executeExchange = async () => {
-    this.props.submitDeposit()
-    const txHash = await executeDeposit(this.props.address, this.state.amount, this.props.networkID)
-    this.props.updateDepositHash(txHash)
+    try {     
+      const txHash = await executeDeposit(this.props.address, this.state.amount, this.props.networkID)
+      this.props.submitDeposit()
+      this.props.updateDepositHash(txHash)
+    } catch (err) {
+      console.log('rejected TX - ', { err });      
+    }
   }
 
   render() {
