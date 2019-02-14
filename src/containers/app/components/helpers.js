@@ -5,7 +5,6 @@ const ethers = require('ethers')
 const validIDs = [ '3', '4', '42', '1337']
 
 export const isValidNetworkID = (id) => {
-  console.log(`id: ${id}, valid: ${validIDs.includes(id)}`)
   return validIDs.includes(id)
 }
 
@@ -16,7 +15,6 @@ export const executeDeposit = async (address, amount, networkID) => {
     value: wei,
   };
   let tx = await contract.functions.deposit(address, config.GOERLI_CHAIN_ID, overrideOptions);
-  console.log(tx)
   return tx.hash;
 }
 
@@ -57,7 +55,7 @@ const instantiateDepositContract = async (pubKey, network) => {
     let contract = new ethers.Contract(contractAddress, config.DEPOSIT_CONTRACT_ABI, signer);
     return contract
   } else {
-    console.log('Error instantiating deposit contract')
+    console.log('Error instantiating deposit contract!')
   }
 };
 
