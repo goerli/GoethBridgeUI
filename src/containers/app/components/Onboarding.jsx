@@ -41,7 +41,6 @@ class Onboarding extends React.Component {
             } else if (!isValidNetworkID(window.ethereum.networkVersion)) {
               alert('Please select either Ropsten, Kovan, or Rinkeby.')
             } else {
-              console.log('enabling metamask')
               this.props.enableMetaMask()
             }
           })

@@ -38,7 +38,6 @@ class TxForm extends React.Component {
     this.props.submitDeposit()
     const txHash = await executeDeposit(this.props.address, this.state.amount, this.props.networkID)
     this.props.updateDepositHash(txHash)
-    console.log(txHash)
   }
 
   render() {
