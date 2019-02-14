@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './App.css'
 import { Onboarding, Processing, Results, TxForm } from './components'
 import Header from './components/layout/Header';
 import Network from './components/Network';
@@ -10,6 +11,10 @@ import { bindActionCreators } from 'redux';
 const ethers = require('ethers')
 
 class App extends Component {
+  state = {
+    isMobile: window.innerWidth < 500,
+  }
+
   constructor(props) {
     super(props)
     window.web3.currentProvider.publicConfigStore.on('update', this.props.updateMetaMask);
@@ -34,6 +39,18 @@ class App extends Component {
         this.props.completeWithdrawal(_txHash)
       }
     })
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions = () => {
+    if (window.innerWidth > 500) {
+      this.setState({ isMobile: false });
+    } else {
+      this.setState({ isMobile: true });
+    }
   }
 
   render() {
@@ -69,10 +86,19 @@ class App extends Component {
       }
     } else {
       return (
-        <div className="App">
+        <div className="App">            
           <div className="App-header">
-            <Header />
-            <Onboarding/>
+            {
+              this.state.isMobile
+                ? <p className="textMobile"> 
+                    Screen width under 500px detected. Mobile devices cannot access the bridge.
+                    If your are not on a mobile devide please increase the screen width to continue.
+                  </p>
+                : <div> 
+                  <Header />
+                  <Onboarding/>
+                </div>
+            }
           </div>
         </div>
       )
