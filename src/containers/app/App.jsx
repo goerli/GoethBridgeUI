@@ -12,7 +12,7 @@ const ethers = require('ethers')
 const AlphaWarn = () => {
   return (
     <div className="networkContainer">
-      <p style={ { 'color': 'red' } }>Note: G&ouml;rli Bridge is still in alpha stages. Please report any issues to https://github.com/goerli/GoethBridge/ &lt;3</p>
+      <p style={ { 'color': 'red' } }>Note: G&ouml;rli Bridge is still in alpha stages. Please report any issues to https://github.com/goerli/GoethBridge/issues &lt;3</p>
     </div>
   )
 }
