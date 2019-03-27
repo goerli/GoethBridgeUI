@@ -6,6 +6,7 @@ import Network from './components/Network';
 import * as config from '../../assets/config/constants';
 import { updateMetaMask, completeDeposit, completeWithdrawal } from '../store/actionCreator'
 import { bindActionCreators } from 'redux';
+import {idToNetworkName} from "./components/helpers";
 
 const ethers = require('ethers')
 
@@ -21,8 +22,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     window.web3.currentProvider.publicConfigStore.on('update', this.props.updateMetaMask);
+  }
 
-    this.foreignProvider = new ethers.providers.Web3Provider(window.web3.currentProvider, parseInt(window.ethereum.networkVersion));
+  createProviders = () => {
+    this.foreignProvider = new ethers.providers.InfuraProvider(idToNetworkName(window.ethereum.networkVersion), parseInt(window.ethereum.networkVersion));
     this.homeProvider = new ethers.providers.JsonRpcProvider(config.GOERLI_HTTPS_ENDPOINT, config.GOERLI_CHAIN_ID)
 
 
@@ -81,7 +84,7 @@ class App extends Component {
         <div className="App">
           <div className="App-header">
             <Header />
-            <Onboarding/>
+            <Onboarding createProviders={this.createProviders}/>
           </div>
         </div>
       )

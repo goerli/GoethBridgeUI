@@ -46,11 +46,8 @@ const getDepositContractAddress = (network) => {
  */
 const instantiateDepositContract = async (pubKey, network) => {
   const provider = new ethers.providers.Web3Provider(window.web3.currentProvider);
-  console.log(`Provider: ${provider}`)
   const signer = provider.getSigner();
-  console.log(signer)
   const contractAddress = getDepositContractAddress(network);
-  console.log(contractAddress)
   if (contractAddress !== null) {
     let contract = new ethers.Contract(contractAddress, config.DEPOSIT_CONTRACT_ABI, signer);
     return contract
@@ -58,5 +55,17 @@ const instantiateDepositContract = async (pubKey, network) => {
     console.log('Error instantiating deposit contract!')
   }
 };
+
+export const idToNetworkName = (id) => {
+  if(id === '3') {
+    return 'ropsten'
+  } else if (id === '4') {
+    return 'rinkeby'
+  } else if (id === '42') {
+    return 'kovan'
+  } else {
+    console.log(`Unrecognized id: ${id}`)
+  }
+}
 
 

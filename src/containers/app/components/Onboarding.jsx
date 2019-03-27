@@ -35,6 +35,7 @@ class Onboarding extends React.Component {
               alert('Please select either Ropsten, Kovan, or Rinkeby.')
             } else {
               this.props.enableMetaMask()
+              this.props.createProviders()
             }
           })
           .catch((reason) => {
