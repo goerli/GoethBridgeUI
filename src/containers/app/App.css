@@ -112,8 +112,9 @@
 
 .networkContainer {
   margin: 0 auto;
-  font-size: 0.8em;
+  font-size: 0.5em;
   padding-top: 2.5%;
+  font-family: 'Sporting Grotesque_Regular';
 }
 
 .loader {

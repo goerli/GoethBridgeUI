@@ -9,6 +9,14 @@ import { bindActionCreators } from 'redux';
 
 const ethers = require('ethers')
 
+const AlphaWarn = () => {
+  return (
+    <div className="networkContainer">
+      <p style={ { 'color': 'red' } }>Note: G&ouml;rli Bridge is still in alpha stages. Please report any issues to https://github.com/goerli/GoethBridge/issues &lt;3</p>
+    </div>
+  )
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -45,6 +53,7 @@ class App extends Component {
               <Header />
               <TxForm/>       
               <Network />
+              <AlphaWarn className="netowrkStyles"/>
             </div>
           </div>
         )
